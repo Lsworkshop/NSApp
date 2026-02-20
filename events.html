@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title data-en="Events | Edunova" data-zh="活动 | Edunova">Events | Edunova</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+  <link rel="icon" href="/assets/icons/favicon.ico">
+
+  <!-- Main CSS (homepage) -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <style>
+    /* =========================================================
+       Events Page — Production (match Forum / Volunteer / Donation)
+       - No permission required
+       - Chinese: NO SimHei / 黑体 vibe
+       - Zone colors = forum
+    ========================================================= */
+
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html { scroll-behavior: smooth; }
+
+    body.page-events {
+      margin: 0;
+      background: #F9FAF7;
+      color: #1f2937;
+      line-height: 1.65;
+
+      /* ✅ 中文坚决不要黑体：不使用 SimHei / Microsoft YaHei */
+      font-family:
+        Inter,
+        "Helvetica Neue",
+        Arial,
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Noto Sans SC",
+        "Source Han Sans SC",
+        "WenQuanYi Micro Hei",
+        sans-serif;
+      font-weight: 400;
+    }
+
+    /* Fixed nav offset */
+    .top-offset { height: 88px; }
+
+    /* ---------------------------
+       Zone structure
+    ---------------------------- */
+    .zone { padding: 52px 0; }
+    .zone-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ✅ Zone backgrounds (same as Forum) */
+    .zone-a { background: #FFFFFF; }
+    .zone-b { background: #E8EEFF; }
+    .zone-c { background: #EFE4FF; }
+    .zone-d { background: #F8F9F6; }
+
+    /* ---------------------------
+       HERO (image + text)
+    ---------------------------- */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+      padding: 28px 0 0;
+    }
+
+    .hero-media img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .page-title {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      letter-spacing: -0.02em;
+      font-weight: 600;
+    }
+
+    /* 中文避免“粗黑”观感 */
+    [data-zh] { font-weight: 400; }
+
+    .page-sub {
+      margin: 0;
+      color: rgba(31,41,55,0.72);
+      font-size: 1.05rem;
+      max-width: 820px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      background: rgba(59,130,246,0.10);
+      border: 1px solid rgba(59,130,246,0.20);
+      color: rgba(31,41,55,0.86);
+    }
+
+    /* ---------------------------
+       Card system
+    ---------------------------- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      grid-column: span 4;
+      background: linear-gradient(180deg, #FFFDF8, #EFE9DA);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow:
+        0 10px 26px rgba(15, 23, 42, 0.08),
+        0 2px 8px rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.12),
+        0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #256F3A;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: rgba(31,41,55,0.78);
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.7rem;
+      letter-spacing: -0.01em;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .muted { color: rgba(31,41,55,0.72); }
+
+    /* ---------------------------
+       Event list (agenda-style)
+    ---------------------------- */
+    .event-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .event-item {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 18px;
+      padding: 18px 18px;
+      box-shadow:
+        0 10px 26px rgba(15, 23, 42, 0.06),
+        0 2px 8px rgba(15, 23, 42, 0.03);
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .event-meta {
+      border-right: 1px solid rgba(15, 23, 42, 0.06);
+      padding-right: 14px;
+    }
+
+    .event-date {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #111827;
+      margin: 0 0 6px;
+    }
+
+    .event-tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(139,92,246,0.10);
+      border: 1px solid rgba(139,92,246,0.18);
+      font-size: 0.88rem;
+      color: rgba(31,41,55,0.84);
+    }
+
+    .event-title {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .event-desc {
+      margin: 0 0 10px;
+      color: rgba(31,41,55,0.78);
+    }
+
+    .event-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* ---------------------------
+       CTA buttons (homepage gradient)
+    ---------------------------- */
+    .cta {
+      text-align: center;
+      border-radius: 26px;
+      padding: 34px 22px;
+      background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.07),
+        0 3px 10px rgba(15, 23, 42, 0.03);
+    }
+
+    .cta h2 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .cta p {
+      margin: 0 auto 18px;
+      max-width: 860px;
+      color: rgba(31,41,55,0.72);
+      font-size: 1.05rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btnx {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .btnx-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(99,102,241,0.34);
+    }
+    .btnx-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(99,102,241,0.48);
+    }
+
+    .btnx-ghost {
+      background: #fff;
+      color: #3b82f6;
+      border-color: rgba(59,130,246,0.55);
+    }
+    .btnx-ghost:hover {
+      background: rgba(59,130,246,0.10);
+      transform: translateY(-2px);
+    }
+
+    .btnx-soft {
+      background: rgba(44,156,71,0.10);
+      color: #256F3A;
+      border-color: rgba(44,156,71,0.20);
+    }
+    .btnx-soft:hover {
+      background: rgba(44,156,71,0.16);
+      transform: translateY(-2px);
+    }
+
+    /* ---------------------------
+       Responsive
+    ---------------------------- */
+    @media (max-width: 980px) {
+      .hero-split { grid-template-columns: 1fr; }
+      .hero-media img { max-height: 320px; }
+      .card { grid-column: span 6; }
+      .event-item { grid-template-columns: 1fr; }
+      .event-meta { border-right: 0; border-bottom: 1px solid rgba(15, 23, 42, 0.06); padding-right: 0; padding-bottom: 12px; }
+    }
+
+    @media (max-width: 640px) {
+      .zone { padding: 40px 0; }
+      .card { grid-column: span 12; }
+      .cta { padding: 28px 18px; }
+      .cta-actions { flex-direction: column; }
+      .btnx { width: 100%; max-width: 320px; margin: 0 auto; }
+    }
+  </style>
+
+  <!-- JS -->
+  <script src="/assets/js/menu.js" defer></script>
+  <script src="/assets/js/lang.js" defer></script>
+  <script src="/assets/js/auth-nav.js" defer></script>
+  <script src="/assets/js/ns-links.js"></script>
+
+</head>
+
+<body class="page-events">
+
+<!-- NAV (use your unified nav) -->
+<nav id="topNav" class="nav--transparent">
+  <div class="nav-inner">
+    <div class="brand">
+      <a href="/index.html#home" class="brand">
+        <img src="/assets/img/superedu-logo.png" alt="Edunova" class="logo-img" />
+        <span class="brand-text">Edunova</span>
+      </a>
+    </div>
+
+    <div class="menu" id="menu">
+      <a href="/index.html#home" data-en="Home" data-zh="首页">Home</a>
+      <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+      <div class="nav-item dropdown">
+        <span class="dropdown-toggle" role="button" aria-haspopup="true" tabindex="0"
+              data-en="Programs ⬇︎" data-zh="项目 ⬇︎"></span>
+        <div class="dropdown-menu">
+          <a href="education.html" id="navEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
+          <a href="community.html" id="navEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
+          <a href="forum.html" id="navForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
+          <a href="events.html" data-en="Events" data-zh="活动">Events</a>
+        </div>
+      </div>
+
+      <a href="/index.html#services" data-en="Services" data-zh="服务">Services</a>
+      <a href="membership.html" id="navMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+      <div class="nav-item dropdown">
+        <span class="dropdown-toggle" role="button" aria-haspopup="true" tabindex="0"
+              data-en="Get Involved ⬇︎" data-zh="参与方式 ⬇︎"></span>
+        <div class="dropdown-menu">
+          <a href="volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
+          <a href="donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
+          <a href="scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
+      scholarship
+    </a>
+          <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
+        </div>
+      </div>
+
+      <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+      <a href="login.html" id="desktopAuth" data-en="Login" data-zh="登录">Login</a>
+
+      <span class="nav-underline"></span>
+    </div>
+
+    <div class="nav-right">
+      <button id="langToggle" class="lang-toggle" aria-label="Language toggle">中文</button>
+      <button id="hamburger" class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="/index.html#home" data-en="Home" data-zh="首页">Home</a>
+    <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+    <details class="mobile-group">
+      <summary data-en="Programs" data-zh="项目">Programs</summary>
+      <a href="education.html" id="mobileEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
+      <a href="community.html" id="mobileEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
+      <a href="forum.html" id="mobileForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
+      <a href="events.html" data-en="Events" data-zh="活动">Events</a>
+    </details>
+
+    <a href="/index.html#services" data-en="Service" data-zh="服务">Service</a>
+    <a href="membership.html" id="mobileMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+    <details class="mobile-group">
+      <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
+      <a href="volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
+      <a href="donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
+      <a href="scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
+      scholarship
+    </a>
+      <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
+    </details>
+
+    <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+    <a href="login.html" id="mobileAuth" data-en="Login" data-zh="登录">Login</a>
+
+    <div class="mobile-actions">
+      <button class="btn btn-ghost" id="mobileRegister" data-en="Register/Join" data-zh="注册/加入">Register / Join</button>
+      <button class="btn" id="mobileUnlock" data-en="Unlock Education" data-zh="解锁教育">Unlock Education</button>
+    </div>
+  </div>
+</nav>
+
+<div class="top-offset"></div>
+
+<!-- =========================
+     Zone A — Hero
+========================= -->
+<section class="zone zone-a">
+  <div class="zone-inner">
+    <div class="hero-split">
+      <div class="hero-media">
+        <img src="/assets/img/events-hero.webp" alt="Edunova Events" />
+      </div>
+
+      <div class="hero-content">
+        <h1 class="page-title"
+            data-en="Events & Activities"
+            data-zh="活动与项目">
+          Events & Activities
+        </h1>
+
+        <p class="page-sub"
+           data-en="Join our talks, workshops, and community activities—built to support students, families, and educators with trusted educational guidance and real value."
+           data-zh="欢迎参加我们的讲座、工作坊与社区活动。我们希望为学生、家长与教育者提供可信的教育信息与真实价值。">
+          Join our talks, workshops, and community activities—built to support students, families, and educators.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge" data-en="🌍 Community-based" data-zh="🌍 社区共建">🌍 Community-based</span>
+          <span class="badge" data-en="🎓 Student-centered" data-zh="🎓 以学生为中心">🎓 Student-centered</span>
+          <span class="badge" data-en="🤝 Volunteer-led" data-zh="🤝 志愿者协作">🤝 Volunteer-led</span>
+        </div>
+
+        <div class="event-actions" style="margin-top:16px;">
+          <a href="/index.html#contact" class="btnx btnx-primary"
+             data-en="Contact Us to Attend"
+             data-zh="联系报名参加">
+            Contact Us to Attend
+          </a>
+          <a href="/volunteer.html" class="btnx btnx-ghost"
+             data-en="Become a Volunteer"
+             data-zh="加入志愿者">
+            Become a Volunteer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     Zone B — What We Host
+========================= -->
+<section class="zone zone-b">
+  <div class="zone-inner">
+    <h2 class="section-title" data-en="What We Host" data-zh="我们举办什么活动">What We Host</h2>
+    <p class="muted"
+       data-en="Events are designed to be practical, warm, and trustworthy—supporting real student growth and family education planning."
+       data-zh="活动内容强调实用、温暖与可信，支持学生成长与家庭教育规划。">
+      Events are designed to be practical, warm, and trustworthy.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-en="📘 Student Workshops" data-zh="📘 学生工作坊">📘 Student Workshops</h3>
+        <p data-en="Learning strategies, academic planning, study habits, and goal setting with real examples."
+           data-zh="学习方法、学术规划、习惯养成与目标制定，配合真实案例。">
+          Learning strategies, academic planning, study habits, and goal setting.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="🎓 College & Scholarship Talks" data-zh="🎓 升学与奖学金讲座">🎓 College & Scholarship Talks</h3>
+        <p data-en="Admissions roadmap, scholarship readiness, and affordability planning for families."
+           data-zh="升学路径、奖学金准备与教育可负担规划，面向家庭更清晰。">
+          Admissions roadmap, scholarship readiness, and affordability planning.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="🤝 Community Meetups" data-zh="🤝 社区交流活动">🤝 Community Meetups</h3>
+        <p data-en="Safe, friendly discussion spaces for parents, students, and mentors to connect."
+           data-zh="为家长、学生与导师提供安全友好的交流空间。">
+          Safe, friendly discussion spaces for parents, students, and mentors to connect.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="🧪 STEM & Project Sharing" data-zh="🧪 STEM 与项目分享">🧪 STEM & Project Sharing</h3>
+        <p data-en="Project showcases, competitions, research pathways, and portfolio building."
+           data-zh="项目展示、竞赛交流、科研路径与作品集打造。">
+          Project showcases, competitions, research pathways, and portfolio building.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="🌍 Social Impact Programs" data-zh="🌍 公益与影响力项目">🌍 Social Impact Programs</h3>
+        <p data-en="Volunteer-led initiatives that support educational fairness and student empowerment."
+           data-zh="志愿者协作推动教育公平，支持青少年成长与自信。">
+          Volunteer-led initiatives that support educational fairness and student empowerment.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="🎤 Guest Speaker Sessions" data-zh="🎤 嘉宾分享">🎤 Guest Speaker Sessions</h3>
+        <p data-en="Invited speakers share experience on education, growth mindset, and real-world learning."
+           data-zh="邀请嘉宾分享教育经验、成长型思维与真实世界学习。">
+          Invited speakers share experience on education, growth mindset, and real-world learning.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     Zone C — Upcoming Events (sample)
+========================= -->
+<section class="zone zone-c">
+  <div class="zone-inner">
+    <h2 class="section-title" data-en="Upcoming Events" data-zh="近期活动（示例）">Upcoming Events</h2>
+    <p class="muted"
+       data-en="Below is a sample layout. You can update dates/topics anytime—or we can connect it to your backend later."
+       data-zh="以下为示例布局，你可以随时更新日期与主题；后续也可以接入后台动态管理。">
+      Below is a sample layout. You can update dates/topics anytime.
+    </p>
+
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-meta">
+          <p class="event-date" data-en="weekly (Online)" data-zh="每周（线上）">Monthly (Online)</p>
+          <span class="event-tag" data-en="Zoom lecture" data-zh="课程讲座">Zoom lecture</span>
+        </div>
+        <div>
+          <h3 class="event-title" data-en="Computer Science & English Programs" data-zh="计算机与英语课程">Computer Science & English Programs</h3>
+          <p class="event-desc"
+             data-en="As a nonprofit initiative, we provide free, long-term Computer Coding courses (with hands-on practice) and English language programs (including live conversations with native speakers) for students around the world—especially students in the United States and Chinese-speaking students from China.
+                         Our mission is to make high-quality education accessible to every family, regardless of background or location."
+             data-zh="针对全球学生，尤其是美国，中国华人学生，长期提供计算机Coding（包含实际操作）与英语（包含与母语学生会话）免费课程。">
+            As a nonprofit initiative, we provide free, long-term Computer Coding courses (with hands-on practice) and English language programs (including live conversations with native speakers) for students around the world—especially students in the United States and Chinese-speaking students from China.
+          </p>
+          <div class="event-actions">
+            <a href="/index.html#contact" class="btnx btnx-primary" data-en="Request Details" data-zh="咨询详情">Request Details</a>
+            <a href="forum.html" class="btnx btnx-ghost" data-en="Discuss in Forum" data-zh="论坛讨论">Discuss in Forum</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-meta">
+          <p class="event-date" data-en="Quarterly (Hybrid)" data-zh="每季度（线上+线下）">Quarterly (Hybrid)</p>
+          <span class="event-tag" data-en="Workshop" data-zh="工作坊">Workshop</span>
+        </div>
+        <div>
+          <h3 class="event-title" data-en="Scholarships & Education Affordability" data-zh="奖学金与教育可负担性">Scholarships & Education Affordability</h3>
+          <p class="event-desc"
+             data-en="How scholarships work, what families can prepare early, and how to build a sustainable education plan."
+             data-zh="奖学金机制、家庭可提前做的准备，以及如何制定更可持续的教育规划。">
+            How scholarships work, what families can prepare early, and how to build a sustainable education plan.
+          </p>
+          <div class="event-actions">
+            <a href="donation.html" class="btnx btnx-soft" data-en="Support Scholarships" data-zh="支持奖学金">Support Scholarships</a>
+            <a href="/index.html#contact" class="btnx btnx-ghost" data-en="Ask a Question" data-zh="咨询问题">Ask a Question</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-meta">
+          <p class="event-date" data-en="Seasonal" data-zh="按学期/季节">Seasonal</p>
+          <span class="event-tag" data-en="Meetup" data-zh="交流会">Meetup</span>
+        </div>
+        <div>
+          <h3 class="event-title" data-en="Parents & Students Community Meetup" data-zh="家长与学生社区交流会">Parents & Students Community Meetup</h3>
+          <p class="event-desc"
+             data-en="A friendly space for families to share concerns and learn from each other—guided by volunteers."
+             data-zh="一个温暖友好的交流空间，家长与学生可分享困惑并互相学习，由志愿者协助引导。">
+            A friendly space for families to share concerns and learn from each other—guided by volunteers.
+          </p>
+          <div class="event-actions">
+            <a href="/volunteer.html" class="btnx btnx-primary" data-en="Join as Volunteer" data-zh="报名做志愿者">Join as Volunteer</a>
+            <a href="/index.html#contact" class="btnx btnx-ghost" data-en="Contact to Attend" data-zh="联系报名">Contact to Attend</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================
+     Zone D — How to Participate + CTA
+========================= -->
+<section class="zone zone-d">
+  <div class="zone-inner">
+    <h2 class="section-title" data-en="How to Participate" data-zh="如何参与">How to Participate</h2>
+    <p class="muted"
+       data-en="We welcome anyone who wants to support education. Most activities are free and volunteer-led. If you want to host, sponsor, or collaborate—reach out anytime."
+       data-zh="我们欢迎所有愿意支持教育的人。多数活动免费且由志愿者协作推进。若你希望主办、赞助或合作，欢迎随时联系我们。">
+      We welcome anyone who wants to support education. Most activities are free and volunteer-led.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-en="✅ Attend" data-zh="✅ 参加活动">✅ Attend</h3>
+        <p data-en="Contact us to receive event schedule, format, and joining details."
+           data-zh="联系获取活动时间、形式与参与方式。">
+          Contact us to receive event schedule, format, and joining details.
+        </p>
+      </div>
+      <div class="card">
+        <h3 data-en="🤝 Volunteer" data-zh="🤝 参与志愿">🤝 Volunteer</h3>
+        <p data-en="Help with hosting, moderation, content, and community support."
+           data-zh="协助活动组织、秩序维护、内容准备与社区支持。">
+          Help with hosting, moderation, content, and community support.
+        </p>
+      </div>
+      <div class="card">
+        <h3 data-en="💜 Sponsor / Donate" data-zh="💜 赞助 / 捐赠">💜 Sponsor / Donate</h3>
+        <p data-en="Support scholarships and educational equity through the Edunova Foundation."
+           data-zh="通过 Edunova Foundation 支持奖学金与教育公平。">
+          Support scholarships and educational equity through the Edunova Foundation.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <div class="cta">
+        <h2 data-en="Join Our Next Event" data-zh="加入下一场活动">Join Our Next Event</h2>
+        <p data-en="Tell us what topics you care about. We’ll share the latest schedule and ways to participate."
+           data-zh="告诉我们你关注的主题，我们会分享最新活动安排与参与方式。">
+          Tell us what topics you care about. We’ll share the latest schedule and ways to participate.
+        </p>
+
+        <div class="cta-actions">
+          <a class="btnx btnx-primary" href="/index.html#contact"
+             data-en="Contact Us"
+             data-zh="联系我们">
+            Contact Us
+          </a>
+          <a class="btnx btnx-ghost" href="donation.html"
+             data-en="Support Scholarships"
+             data-zh="支持奖学金">
+            Support Scholarships
+          </a>
+          <a class="btnx btnx-soft" href="volunteer.html"
+             data-en="Volunteer with Us"
+             data-zh="加入志愿者">
+            Volunteer with Us
+          </a>
+        </div>
+
+        <p class="muted" style="margin-top: 14px;"
+           data-en="You can also share event ideas. We love co-creating with the community."
+           data-zh="也欢迎提供活动建议，我们非常乐意与社区共同共创。">
+          You can also share event ideas. We love co-creating with the community.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- Footer (reuse your site footer if you have one) -->
+   <!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+
+    <!-- Column 1 -->
+    <div class="footer-col">
+      <h4>Edunova</h4>
+      <a href="apply.html" target="_blank"
+         data-en="Apply for Services"
+         data-zh="申请服务">
+        申请服务
+      </a>
+      <a href="membership.html"
+         data-en="Membership"
+         data-zh="会员中心">
+        会员中心
+      </a>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="footer-col">
+      <h4 data-en="Education & Fund" data-zh="教育与基金">
+        教育与基金
+      </h4>
+      <a href="/home#resources"
+         data-en="Resources"
+         data-zh="学习资源">
+        学习资源
+      </a>
+      <a href="https://www.lsfinova.com/aid" target="_blank"
+         data-en="Aid Calculator"
+         data-zh="教育资助计算器">
+        教育资助计算器
+      </a>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="footer-col">
+      <h4 data-en="Contact" data-zh="联系我们">
+        联系我们
+      </h4>
+      <div class="muted"
+           data-en="Phone: 1-916-793-0676 (Text)"
+           data-zh="电话 / 短信：1-916-793-0676">
+        电话 / 短信：1-916-793-0676
+      </div>
+      <div class="muted"
+           data-en="WeChat: Leon_Song_PhD"
+           data-zh="微信：Leon_Song_PhD">
+        微信：Leon_Song_PhD
+      </div>
+    </div>
+
+    <!-- Column 4 -->
+    <div class="footer-col">
+      <h4 data-en="Legal" data-zh="法律信息">
+        法律信息
+      </h4>
+      <a href="privacy.html"
+         data-en="Privacy Policy"
+         data-zh="隐私政策">
+        隐私政策
+      </a>
+      <a href="terms.html"
+         data-en="Terms of Service"
+         data-zh="服务条款">
+        服务条款
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer-copy"
+       data-en="© 2025 Edunova Foundation. All rights reserved."
+       data-zh="© 2025 Edunova Foundation 版权所有">
+    © 2025 Edunova — LSFinova 版权所有
+  </div>
+</footer>
+</body>
+</html>
