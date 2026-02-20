@@ -56,7 +56,7 @@ async function sendVerificationEmail({
   lastName
 }) {
 
-  const baseUrl = "https://cfs.finovawm.com";
+  const baseUrl = "https://cfsapp.finovawm.com";
   const verifyLink =
     `${baseUrl}/api/verify-email?token=${token}`;
 
