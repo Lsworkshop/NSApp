@@ -48,6 +48,8 @@
     // ③ 同步按钮文字
     const btn = document.getElementById("langToggle");
     if (btn) btn.textContent = isEN ? "中文" : "EN";
+
+  window.dispatchEvent(new CustomEvent("superedu:langchange", { detail: { lang: L } }));
   }
 
   // 暴露给 menu.js 等使用

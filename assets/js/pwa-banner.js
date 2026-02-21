@@ -126,4 +126,17 @@
   }
 
   document.addEventListener("DOMContentLoaded", init);
+
+  window.addEventListener("superedu:langchange", function(e) {
+  const lang = e.detail.lang;
+  const dict = I18N[lang] || I18N.en;
+
+  const text = document.getElementById("pwaBannerText");
+  const btn = document.getElementById("pwaBannerBtn");
+  const title = document.getElementById("pwaHelpTitle");
+
+  if (text) text.textContent = dict.bannerText;
+  if (btn) btn.textContent = dict.howBtn;
+  if (title) title.textContent = dict.helpTitle;
+});
 })();
