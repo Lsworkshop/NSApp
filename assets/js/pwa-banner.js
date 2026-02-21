@@ -89,12 +89,13 @@
 
     const help = document.createElement("div");
     help.id = "pwaHelpWrap";
+   
     help.innerHTML = `
-      <div id="pwaHelpCard">
-        <div id="pwaHelpTitle">${dict.helpTitle}</div>
-        <div>${isIOS() ? dict.iosHelp : dict.andHelp}</div>
-      </div>
-    `;
+  <div id="pwaHelpCard">
+    <div id="pwaHelpTitle">${dict.helpTitle}</div>
+    <div id="pwaHelpText">${isIOS() ? dict.iosHelp : dict.andHelp}</div>
+  </div>
+`;
 
     document.body.appendChild(wrap);
     document.body.appendChild(help);
