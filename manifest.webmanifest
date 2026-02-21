@@ -1,7 +1,7 @@
 {
   "name": "Finova CFS App",
   "short_name": "CFS NSnova",
-  "start_url": "/ns12345/",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
