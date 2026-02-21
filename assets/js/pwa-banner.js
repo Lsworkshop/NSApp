@@ -1,10 +1,38 @@
 (function () {
-  const BANNER_KEY = "pwa_banner_dismissed_v1";
+  const BANNER_KEY = "pwa_banner_dismissed_v2";
   const DISMISS_DAYS = 30;
 
+  // ===== 读取你现有语言系统 =====
+  function getSiteLang() {
+    try {
+      const v = (localStorage.getItem("superedu-lang") || "").toLowerCase();
+      if (v === "zh" || v === "en") return v;
+    } catch {}
+    const htmlLang = (document.documentElement.lang || "").toLowerCase();
+    if (htmlLang.startsWith("zh")) return "zh";
+    return "en";
+  }
+
+  const I18N = {
+    zh: {
+      bannerText: "将本应用添加到主屏幕，获得更快捷的访问体验。",
+      howBtn: "如何添加",
+      helpTitle: "添加到主屏幕",
+      iosHelp: "在 Safari 点击底部“分享”按钮 → 选择“添加到主屏幕”。",
+      andHelp: "在浏览器菜单中选择“安装应用”或“添加到主屏幕”。"
+    },
+    en: {
+      bannerText: "Add this app to your Home Screen for faster and easier access.",
+      howBtn: "How to add",
+      helpTitle: "Add to Home Screen",
+      iosHelp: "In Safari, tap Share → select Add to Home Screen.",
+      andHelp: "Open the browser menu and choose Install app or Add to Home screen."
+    }
+  };
+
   function isStandalone() {
-    const mql = window.matchMedia && window.matchMedia("(display-mode: standalone)").matches;
-    const iosStandalone = window.navigator && window.navigator.standalone === true;
+    const mql = window.matchMedia("(display-mode: standalone)").matches;
+    const iosStandalone = window.navigator.standalone === true;
     return !!(mql || iosStandalone);
   }
 
@@ -13,8 +41,7 @@
       const raw = localStorage.getItem(BANNER_KEY);
       if (!raw) return false;
       const data = JSON.parse(raw);
-      if (!data || !data.ts) return false;
-      return (Date.now() - data.ts) < DISMISS_DAYS * 24 * 60 * 60 * 1000;
+      return Date.now() - data.ts < DISMISS_DAYS * 86400000;
     } catch {
       return false;
     }
@@ -27,7 +54,7 @@
   }
 
   function isIOS() {
-    return /iphone|ipad|ipod/i.test(navigator.userAgent || "");
+    return /iphone|ipad|ipod/i.test(navigator.userAgent);
   }
 
   function ensureStyles() {
@@ -35,81 +62,68 @@
     const style = document.createElement("style");
     style.id = "pwaBannerStyles";
     style.textContent = `
-      #pwaBannerWrap{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
-      #pwaBannerCard{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);display:flex;gap:10px;align-items:center;}
-      #pwaBannerText{flex:1;font-size:14px;line-height:1.35;color:#111;}
-      #pwaBannerBtn{border:0;background:#5A47E0;color:#fff;padding:8px 10px;border-radius:10px;font-size:13px;cursor:pointer;white-space:nowrap;}
-      #pwaBannerClose{border:0;background:transparent;font-size:18px;line-height:1;cursor:pointer;padding:6px 8px;color:#111;}
-      #pwaHelpWrap{display:none;position:fixed;left:12px;right:12px;bottom:70px;z-index:9999;}
-      #pwaHelpCard{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);font-size:13px;line-height:1.45;color:#111;}
+      #pwaBannerWrap{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+      #pwaBannerCard{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.12);display:flex;gap:12px;align-items:center;}
+      #pwaBannerText{flex:1;font-size:14px;line-height:1.4;color:#111;}
+      #pwaBannerBtn{border:0;background:#5A47E0;color:#fff;padding:8px 12px;border-radius:10px;font-size:13px;cursor:pointer;}
+      #pwaBannerClose{border:0;background:transparent;font-size:18px;cursor:pointer;}
+      #pwaHelpWrap{display:none;position:fixed;left:12px;right:12px;bottom:80px;z-index:9999;}
+      #pwaHelpCard{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.12);font-size:13px;line-height:1.5;}
       #pwaHelpTitle{font-weight:600;margin-bottom:6px;}
-      #pwaHelpText b{font-weight:650;}
-      @media (max-width:360px){#pwaBannerText{font-size:13px}}
     `;
     document.head.appendChild(style);
   }
 
-  function buildBanner() {
+  function buildBanner(dict) {
     ensureStyles();
 
     const wrap = document.createElement("div");
     wrap.id = "pwaBannerWrap";
     wrap.innerHTML = `
-      <div id="pwaBannerCard" role="status" aria-live="polite">
-        <div id="pwaBannerText">可添加到手机主屏幕，更方便下次一键打开。</div>
-        <button id="pwaBannerBtn" type="button">怎么添加</button>
-        <button id="pwaBannerClose" type="button" aria-label="close">×</button>
+      <div id="pwaBannerCard">
+        <div id="pwaBannerText">${dict.bannerText}</div>
+        <button id="pwaBannerBtn">${dict.howBtn}</button>
+        <button id="pwaBannerClose">×</button>
       </div>
     `;
 
     const help = document.createElement("div");
     help.id = "pwaHelpWrap";
     help.innerHTML = `
-      <div id="pwaHelpCard" role="dialog" aria-modal="false">
-        <div id="pwaHelpTitle">添加到主屏幕方法</div>
-        <div id="pwaHelpText"></div>
+      <div id="pwaHelpCard">
+        <div id="pwaHelpTitle">${dict.helpTitle}</div>
+        <div>${isIOS() ? dict.iosHelp : dict.andHelp}</div>
       </div>
     `;
 
     document.body.appendChild(wrap);
     document.body.appendChild(help);
 
-    const helpText = help.querySelector("#pwaHelpText");
-    if (helpText) {
-      helpText.innerHTML = isIOS()
-        ? `在 <b>Safari</b> 点击底部 <b>分享</b> → 选择 <b>添加到主屏幕</b>。`
-        : `在浏览器右上角菜单中选择 <b>安装应用</b> 或 <b>添加到主屏幕</b>。`;
-    }
-
-    const btnHow = wrap.querySelector("#pwaBannerBtn");
-    const btnClose = wrap.querySelector("#pwaBannerClose");
-
-    btnHow && btnHow.addEventListener("click", () => {
-      help.style.display = (help.style.display === "block") ? "none" : "block";
+    wrap.querySelector("#pwaBannerBtn").addEventListener("click", () => {
+      help.style.display = help.style.display === "block" ? "none" : "block";
     });
 
-    btnClose && btnClose.addEventListener("click", () => {
+    wrap.querySelector("#pwaBannerClose").addEventListener("click", () => {
       wrap.style.display = "none";
       help.style.display = "none";
       markDismissed();
     });
 
-    return { wrap, help };
+    return wrap;
   }
 
   function init() {
     if (isStandalone()) return;
     if (dismissedRecently()) return;
 
+    const lang = getSiteLang();
+    const dict = I18N[lang] || I18N.en;
+
     setTimeout(() => {
-      const { wrap } = buildBanner();
-      wrap.style.display = "block";
+      const banner = buildBanner(dict);
+      banner.style.display = "block";
     }, 600);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  document.addEventListener("DOMContentLoaded", init);
 })();
