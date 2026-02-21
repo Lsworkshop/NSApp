@@ -1,6 +1,6 @@
 {
   "name": "Finova CFS App",
-  "short_name": "CFS App",
+  "short_name": "CFS NSnova",
   "start_url": "/ns12345/",
   "scope": "/",
   "display": "standalone",
@@ -10,7 +10,8 @@
   {
     "src": "/assets/icon/icon-192.png",
     "sizes": "192x192",
-    "type": "image/png"
+    "type": "image/png",
+    "purpose": "any maskable"
   },
   {
     "src": "/assets/icon/icon-512.png",
