@@ -131,12 +131,16 @@
   const lang = e.detail.lang;
   const dict = I18N[lang] || I18N.en;
 
-  const text = document.getElementById("pwaBannerText");
-  const btn = document.getElementById("pwaBannerBtn");
+  const text  = document.getElementById("pwaBannerText");
+  const btn   = document.getElementById("pwaBannerBtn");
   const title = document.getElementById("pwaHelpTitle");
+  const help  = document.getElementById("pwaHelpText"); // ✅新增
 
-  if (text) text.textContent = dict.bannerText;
-  if (btn) btn.textContent = dict.howBtn;
+  if (text)  text.textContent = dict.bannerText;
+  if (btn)   btn.textContent = dict.howBtn;
   if (title) title.textContent = dict.helpTitle;
+
+  // ✅新增：更新帮助正文（根据 iOS/Android 选择一句）
+  if (help) help.textContent = (isIOS() ? dict.iosHelp : dict.andHelp);
 });
 })();
