@@ -13,6 +13,24 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/android-chrome-512.png">
 <link rel="icon" href="/assets/icons/favicon.ico">
 
+ <!-- ===== PWA 基础设置开始 ===== -->
+
+<!-- Manifest -->
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- 浏览器主题色（Android 地址栏颜色） -->
+<meta name="theme-color" content="#5A47E0">
+
+<!-- iOS 支持 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="CFS App">
+
+<!-- iOS 图标 -->
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+
+<!-- ===== PWA 基础设置结束 ===== -->
+
 <style>
   :root {
     --brand-gold:#D8B04C;
@@ -821,6 +839,13 @@ document.getElementById('applyForm').addEventListener('submit', async e =>{
     © 2025 Edunova — LSFinova 版权所有
   </div>
 </footer>
-
+<script src="/assets/js/pwa-banner.js" defer></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
