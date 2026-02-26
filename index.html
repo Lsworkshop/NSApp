@@ -9,7 +9,7 @@
   <meta name="description" content="Edunova — education planning, FAFSA guidance, college funding, and family education resources." />
 
   <!-- icons (put files under /assets/icons/) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="800x800" href="/assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/android-chrome-192.png">
@@ -17,12 +17,31 @@
   <link rel="icon" href="/assets/icons/favicon.ico">
 
   <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/lang.js" defer></script>
+  <script src="/assets/js/menu.js" defer></script>
   <script src="/assets/js/access.js" defer></script>
   <script src="/assets/js/auth-nav.js" defer></script>
   <script src="/assets/js/toast.js" defer></script>
-
-   
+  <script src="/assets/js/ns-links.js" defer></script>
   <!-- You may later place per-page CSS overrides near end of document in Part 5-D -->
+
+  <!-- ===== PWA 基础设置开始 ===== -->
+
+<!-- Manifest -->
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- 浏览器主题色（Android 地址栏颜色） -->
+<meta name="theme-color" content="#5A47E0">
+
+<!-- iOS 支持 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="CFS App">
+
+<!-- iOS 图标 -->
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+
+<!-- ===== PWA 基础设置结束 ===== -->
 </head>
 
 <body>
@@ -386,21 +405,21 @@
   </span> 
 
   <div class="dropdown-menu">
-    <a href="/education.html"
+    <a href="education.html"
        id="navEduCenter"
        data-en="EduCenter"
        data-zh="教育中心">
       EduCenter
     </a>
 
-    <a href="/community.html"
+    <a href="community.html"
        id="navEduCommunity"
        data-en="EduCommunity"
        data-zh="教育社区">
       EduCommunity
     </a>
 
-    <a href="/forum.html"
+    <a href="forum.html"
        id="navForum"
        data-en="EduForum"
        data-zh="教育论坛">
@@ -417,7 +436,7 @@
       <a href="/index.html#services" data-en="Services" data-zh="服务">Services</a>
 
       <!-- Membership -->
-     <a href="/membership.html" id="navMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+     <a href="membership.html" id="navMembership" data-en="Membership" data-zh="会员中心">Membership</a>
 
       <!-- Get Involved Dropdown -->
 <div class="nav-item dropdown">
@@ -427,19 +446,19 @@
 </span>
 
   <div class="dropdown-menu">
-    <a href="/volunteer.html"
+    <a href="volunteer.html"
        data-en="Volunteer"
        data-zh="志愿者">
       Volunteer
     </a>
 
-    <a href="/donation.html"
+    <a href="donation.html"
        data-en="Donation"
        data-zh="捐赠">
       Donation
     </a>
 
-    <a href="/scholarship.html"
+    <a href="scholarship.html"
        data-en="scholarship"
        data-zh="奖学金">
       scholarship
@@ -457,7 +476,7 @@
       <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
 
       <!-- Login -->
-     <a href="/login.html" id="desktopAuth" data-en="Login" data-zh="登录">Login</a>
+     <a href="login.html" id="desktopAuth" data-en="Login" data-zh="登录">Login</a>
 
       <!-- Slide underline -->
       <span class="nav-underline"></span>
@@ -486,24 +505,24 @@
     <!-- Programs Accordion -->
     <details class="mobile-group">
       <summary data-en="Programs" data-zh="项目">Programs</summary>
-      <a href="/education.html" id="mobileEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
-      <a href="/community.html" id="mobileEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
-      <a href="/forum.html" id="mobileForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
-      <a href="/events.html" data-en="Events" data-zh="活动">Events</a>
+      <a href="education.html" id="mobileEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
+      <a href="community.html" id="mobileEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
+      <a href="forum.html" id="mobileForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
+      <a href="events.html" data-en="Events" data-zh="活动">Events</a>
     </details>
 
     <!-- Service -->
     <a href="/index.html#services" data-en="Service" data-zh="服务">Service</a>
 
     <!-- Membership -->
-    <a href="/membership.html" id="mobileMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+    <a href="membership.html" id="mobileMembership" data-en="Membership" data-zh="会员中心">Membership</a>
 
     <!-- Get Involved Accordion -->
     <details class="mobile-group">
       <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
-      <a href="/volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
-      <a href="/donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
-      <a href="/scholarship.html"
+      <a href="volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
+      <a href="donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
+      <a href="scholarship.html"
        data-en="scholarship"
        data-zh="奖学金">
       scholarship
@@ -515,7 +534,7 @@
     <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
 
     <!-- Login -->
-    <a href="/login.html" id="mobileAuth" data-en="Login" data-zh="登录">Login</a>
+    <a href="login.html" id="mobileAuth" data-en="Login" data-zh="登录">Login</a>
 
     <!-- Mobile action buttons -->
     <div class="mobile-actions">
@@ -558,16 +577,9 @@
           <span>Quick Unlock → Education</span>
         </button>
 
-     <a class="btn btn-link hero-cta"
-   href="javascript:void(0)"
-   id="ctaApply"
-   target="_self"
-   data-en="Apply for Services"
-   data-zh="申请服务">
-  Apply for Services
-</a>
-
-
+        <a class="btn btn-link hero-cta" href="apply.html" id="ctaApply" target="_self" data-en="Apply for Services" data-zh="申请服务">
+          Apply for Services
+        </a>
       </div>
 
       <div class="hero-subitems">
@@ -686,7 +698,7 @@
 
 
     <!-- ================= Core Category 1 ================= -->
-    <article class="core-card" onclick="location.href='/apply.html'">
+    <article class="core-card" onclick="location.href='apply.html'">
       <header class="core-card-header">
         <h3 data-en="🎓 Education Affordability & Funding Support"
             data-zh="🎓 教育可负担性与资助支持">
@@ -700,23 +712,23 @@
 
       <div class="sub-services-grid">
 
-         <article class="service-card" onclick="location.href='/apply.html'">
-          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-dollar"></use></svg>
-          <div class="service-content">
-            <h3 data-en="Financial Aid (FAFSA / CSS) — One-on-One" data-zh="助学金（FAFSA/CSS）一对一">1. Financial Aid (FAFSA / CSS) — One-on-One</h3>
-            <p class="desc" data-en="Detailed FAFSA & CSS walkthroughs, grant/loan strategies, and institutional aid support." data-zh="详细 FAFSA 与 CSS 操作指导，助学金与贷款策略，院校个案支持。">Detailed FAFSA & CSS walkthroughs, grant/loan strategies, and institutional aid support.</p>
-             </div>
-        </article>
-
-        <article class="service-card" onclick="location.href='/apply.html'">
+          <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-star"></use></svg>
           <div class="service-content">
-            <h3 data-en="Scholarship Application Support" data-zh="奖学金申请支持">2. Scholarship Application Support</h3>
+            <h3 data-en="Scholarship Application Support" data-zh="奖学金申请支持">Scholarship Application Support</h3>
             <p class="desc" data-en="Merit & need-based scholarship search, essay strategy and application management for HS and college." data-zh="成绩型与需求型奖学金研究、文书策略与申请管理，覆盖高中与大学的奖学金。">Merit & need-based scholarship search, essay strategy and application management for HS and college.</p>
              </div>
         </article>
 
-        <article class="service-card" onclick="location.href='/apply.html'">
+         <article class="service-card" onclick="location.href='apply.html'">
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-dollar"></use></svg>
+          <div class="service-content">
+            <h3 data-en="Financial Aid (FAFSA / CSS) — One-on-One" data-zh="助学金（FAFSA/CSS）一对一">Financial Aid (FAFSA / CSS) — One-on-One</h3>
+            <p class="desc" data-en="Detailed FAFSA & CSS walkthroughs, grant/loan strategies, and institutional aid support." data-zh="详细 FAFSA 与 CSS 操作指导，助学金与贷款策略，院校个案支持。">Detailed FAFSA & CSS walkthroughs, grant/loan strategies, and institutional aid support.</p>
+             </div>
+        </article>
+
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-piggy"></use></svg>
           <div class="service-content">
             <h3 data-en="Education Savings & Tax (ESA / 529)" data-zh="教育储蓄与税务（ESA/529）">Education Savings & Tax (ESA / 529)</h3>
@@ -724,7 +736,7 @@
             </div>
         </article>
 
-        <article class="service-card" onclick="location.href='/apply.html'">
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-graph"></use></svg>
           <div class="service-content">
             <h3 data-en="College Fund Design & Financial Strategy" data-zh="大学基金设计与财务策略">College Fund Design & Financial Strategy</h3>
@@ -736,7 +748,7 @@
     </article>
 
     <!-- ================= Core Category 2 ================= -->
-    <article class="core-card" onclick="location.href='/apply.html'">
+    <article class="core-card" onclick="location.href='apply.html'">
       <header class="core-card-header">
         <h3 data-en="🤝 Volunteer & Social Impact Programs"
             data-zh="🤝 公益项目与志愿者计划">
@@ -749,7 +761,7 @@
       </header>
 
       <div class="sub-services-grid">
-      <article class="service-card" onclick="location.href='/apply.html'">
+      <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-award"></use></svg>
           <div class="service-content">
             <h3 data-en="Edunova Distinguished Volunteer" data-zh="Volunteer志愿者公益事业">Edunova Distinguished Volunteer</h3>
@@ -757,7 +769,7 @@
             </div>
       </article>
 
-      <article class="service-card" onclick="location.href='/apply.html'">
+      <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-house"></use></svg>
           <div class="service-content">
             <h3 data-en="Student Housing & Nearby Real Estate Services" data-zh="大学周边房产/住宿与投资服务">Student Housing & Nearby Real Estate Services</h3>
@@ -769,7 +781,7 @@
     </article>
 
     <!-- ================= Core Category 3 ================= -->
-    <article class="core-card" onclick="location.href='/apply.html'">
+    <article class="core-card" onclick="location.href='apply.html'">
       <header class="core-card-header">
         <h3 data-en="🏠 Education-Centered Family & Community Support"
             data-zh="🏠 以教育为核心的家庭与社会支持">
@@ -783,7 +795,7 @@
 
       <div class="sub-services-grid">
 
-        <article class="service-card" onclick="location.href='/apply.html'">
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-book"></use></svg>
           <div class="service-content">
             <h3 data-en="U.S. Education — Comparative Analysis" data-zh="美国教育的优势与比较">U.S. Education — Comparative Analysis</h3>
@@ -791,7 +803,7 @@
             </div>
         </article>
 
-         <article class="service-card" onclick="location.href='/apply.html'">
+         <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-family"></use></svg>
           <div class="service-content">
             <h3 data-en="Family & Long-term Education Planning" data-zh="家庭与长期教育规划">Family & Long-term Education Planning</h3>
@@ -799,7 +811,7 @@
             </div>
         </article>
 
-        <article class="service-card" onclick="location.href='/apply.html'">
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-building"></use></svg>
           <div class="service-content">
             <h3 data-en="Family Foundation / 501(c)(3) Setup" data-zh="设立家族基金会 / 501(c)(3)">Family Foundation / 501(c)(3) Setup</h3>
@@ -807,7 +819,7 @@
             </div>
         </article>
 
-         <article class="service-card" onclick="location.href='/apply.html'">
+         <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-shield"></use></svg>
           <div class="service-content">
             <h3 data-en="Education + Wealth & Trust Planning" data-zh="教育与财富 / 信托规划">Education + Wealth & Trust Planning</h3>
@@ -819,7 +831,7 @@
     </article>
 
     <!-- ================= Core Category 4 ================= -->
-    <article class="core-card" onclick="location.href='/apply.html'">
+    <article class="core-card" onclick="location.href='apply.html'">
       <header class="core-card-header">
         <h3 data-en="📘 Academic & College Readiness Support (Through Partners)"
             data-zh="📘 课程与升学支持（合作机构提供）">
@@ -832,7 +844,7 @@
       </header>
 
       <div class="sub-services-grid">
-        <article class="service-card" onclick="location.href='/apply.html'">
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-target"></use></svg>
           <div class="service-content">
             <h3 data-en="College Application Overview" data-zh="美国大学申请总体情况">College Application Overview</h3>
@@ -840,7 +852,7 @@
                   </div>
         </article>
 
-        <article class="service-card" onclick="location.href='/apply.html'">
+        <article class="service-card" onclick="location.href='apply.html'">
           <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#card-certificate"></use></svg>
           <div class="service-content">
             <h3 data-en="Pre-College Profile (AP / Summer)" data-zh="升学档案构建（AP/暑期）">Pre-College Profile (AP / Summer)</h3>
@@ -867,8 +879,8 @@
         Tools & Quick Actions
       </h2>
       <p class="section-sub"
-         data-en="Register, unlock content, or apply for one-on-one services."
-         data-zh="注册、快速解锁或提交一对一服务申请。">
+         data-en="Join List, unlock content, or apply for one-on-one services."
+         data-zh="加入名单、快速解锁或提交一对一服务申请。">
         Register, unlock content, or apply for one-on-one services.
       </p>
     </div>
@@ -917,10 +929,10 @@
 <div id="rEmailStatus" class="field-hint"></div>
 
 
-          <label for="r-ref" data-en="Referral code (optional)" data-zh="推荐码（可选）">
-            ns12345
+          <label for="r-ref" data-en="Promotion Code (optional)" data-zh="优惠码（可选）">
+            Referral code (optional)
           </label>
-          <input id="r-ref" name="ref" type="text" placeholder="Referral code / 推荐码" />
+          <input id="r-ref" name="ref" type="text" placeholder="NS12345" />
 
           <div class="form-actions">
             
@@ -983,7 +995,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     submitBtn.onclick = () => {
-      window.location.href = "/education.html";
+      window.location.href = "education.html";
     };
 
     // 通知语言系统刷新
@@ -1151,6 +1163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   required
   placeholder="Email / 邮箱"
 />
+  <input id="r-ref" name="ref" type="text" placeholder="Promotion Code/优惠码: NS12345" />
 <div id="uEmailStatus" class="field-hint"></div>
 
 
@@ -1312,7 +1325,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       return;
     }
-    window.location.href = "/education.html";
+    window.location.href = "education.html";
   });
 });
 </script>
@@ -1321,7 +1334,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <!-- ③ Apply — clickable service-style card -->
       <div class="card tool-card apply-card clickable"
-           onclick="location.href='/apply.html'">
+           onclick="location.href='apply.html'">
 
         <h3>
           <svg class="sub-icon" viewBox="0 0 24 24">
@@ -1433,7 +1446,7 @@ Under adult supervision, the students also play a leading role in managing donat
           <a class="resource-pill" href="https://www.jkcf.org/our-scholarships/" target="_blank" data-en="Jack Kent Cooke Foundation Scholarship" data-zh="杰克·肯特·库克奖学金">Jack Kent Cooke Foundation Scholarship</a>
         </div>
       </div>
-</div>
+    </div>
     </section>
 
      <!-- CONTACT -->
@@ -1507,6 +1520,15 @@ Under adult supervision, the students also play a leading role in managing donat
   data-zh="电子邮箱"
 />
 
+<input
+  id="c-code"
+  type="code"
+  required
+  placeholder="Promotion Code"
+  data-en="Promotion Code:NS12345"
+  data-zh="优惠码：NS12345"
+/>
+
 <div id="cEmailStatus" class="field-hint"></div>
 
 <input
@@ -1556,12 +1578,12 @@ Under adult supervision, the students also play a leading role in managing donat
     <!-- Column 1 -->
     <div class="footer-col">
       <h4>Edunova</h4>
-      <a href="/apply.html" target="_blank"
+      <a href="apply.html" target="_blank"
          data-en="Apply for Services"
          data-zh="申请服务">
         申请服务
       </a>
-      <a href="/membership.html"
+      <a href="membership.html"
          data-en="Membership"
          data-zh="会员中心">
         会员中心
@@ -1607,12 +1629,12 @@ Under adult supervision, the students also play a leading role in managing donat
       <h4 data-en="Legal" data-zh="法律信息">
         法律信息
       </h4>
-      <a href="/privacy.html"
+      <a href="privacy.html"
          data-en="Privacy Policy"
          data-zh="隐私政策">
         隐私政策
       </a>
-      <a href="/terms.html"
+      <a href="terms.html"
          data-en="Terms of Service"
          data-zh="服务条款">
         服务条款
@@ -1793,33 +1815,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-(function () {
-  function getNs() {
-    const m = window.location.pathname.match(/^\/(ns[0-9A-Za-z_-]+)(\/|$)/);
-    return m ? m[1] : null;
-  }
-
-  function goWithNs(page) {
-    const ns = getNs();
-    const p = page.startsWith("/") ? page : ("/" + page);
-    const target = ns ? ("/" + ns + p) : p;
-    window.location.assign(target);
-  }
-
-  // ✅ 捕获阶段 + stopImmediatePropagation：强制抢到点击事件
-  document.addEventListener("click", function (e) {
-    const a = e.target.closest && e.target.closest("#ctaApply");
-    if (!a) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-
-    goWithNs("apply.html");
-  }, true);
-})();
 </script>
 
+<script src="/assets/js/pwa-banner.js" defer></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+</script>
 
 </body>
 </html>
