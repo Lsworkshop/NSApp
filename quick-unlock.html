@@ -17,30 +17,14 @@
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!-- ensure menu + lang behavior same as other pages -->
-  <script src="/assets/js/lang.js" defer></script>
+   <script src="/assets/js/lang.js" defer></script>
   <script src="/assets/js/menu.js" defer></script>
   <script src="/assets/js/toast.js" defer></script>
-  <script src="/assets/js/auth-nav.js" defer></script>
+   <script src="/assets/js/auth-nav.js" defer></script>
   <script src="/assets/js/access.js" defer></script>
   <script src="/assets/js/ns-links.js" defer></script>
 
- <!-- ===== PWA 基础设置开始 ===== -->
 
-<!-- Manifest -->
-<link rel="manifest" href="/manifest.webmanifest">
-
-<!-- 浏览器主题色（Android 地址栏颜色） -->
-<meta name="theme-color" content="#5A47E0">
-
-<!-- iOS 支持 -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="CFS App">
-
-<!-- iOS 图标 -->
-<link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
-
-<!-- ===== PWA 基础设置结束 ===== -->
   <style>
     /* small page-specific tweaks to match visual style */
     .page-wrap { max-width: 980px; margin: 110px auto 60px; padding: 0 20px; }
@@ -556,6 +540,7 @@
     const firstName = document.getElementById("q-first")?.value.trim();
     const lastName  = document.getElementById("q-last")?.value.trim();
     const email     = document.getElementById("q-email")?.value.trim();
+    const ref       = document.querySelector('input[name="ref"]')?.value.trim();
 
     if (!firstName || !lastName || !email) {
       toast(lang === "zh" ? MSG.fillRequired.zh : MSG.fillRequired.en, "err");
@@ -600,7 +585,7 @@
       const res = await fetch("/api/unlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, email }),
+        body: JSON.stringify({ firstName, lastName, email, ref }),
       });
 
       const out = await res.json().catch(() => ({}));
@@ -715,14 +700,6 @@
     © 2025 Edunova — LSFinova 版权所有
   </div>
 </footer>
-<script src="/assets/js/pwa-banner.js" defer></script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
-  });
-}
-</script>
 </body>
 </html>
 
