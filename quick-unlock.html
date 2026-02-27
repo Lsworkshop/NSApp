@@ -249,8 +249,8 @@
           <label for="q-email" data-en="Email" data-zh="邮箱">Email</label>
           <input id="q-email" name="email" type="email" required placeholder="you@domain.com / 您的邮箱" />
  
-          <label for="ref" data-en="Promotion Code" data-zh="优惠码">NS12345</label>
-          <input id="ref" name="ref" type="text" required placeholder="NS12345" />
+          <label for="referral_code" data-en="Promotion Code" data-zh="优惠码">NS12345</label>
+          <input id="referral_code" name="refreferral_code" type="text" required placeholder="NS12345" />
 
           <div id="emailStatus" class="field-hint"></div>
 
@@ -540,7 +540,7 @@
     const firstName = document.getElementById("q-first")?.value.trim();
     const lastName  = document.getElementById("q-last")?.value.trim();
     const email     = document.getElementById("q-email")?.value.trim();
-    const ref =  document.getElementById("referral_code")?.value.trim() || null;
+    const referral_code =  document.getElementById("referral_code")?.value.trim() || null;
 
     if (!firstName || !lastName || !email) {
       toast(lang === "zh" ? MSG.fillRequired.zh : MSG.fillRequired.en, "err");
@@ -585,7 +585,7 @@
       const res = await fetch("/api/unlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, email, ref }),
+        body: JSON.stringify({ firstName, lastName, email, referral_code }),
       });
 
       const out = await res.json().catch(() => ({}));
