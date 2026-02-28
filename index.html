@@ -929,11 +929,11 @@
 <div id="rEmailStatus" class="field-hint"></div>
 
 
-          <label for="r-ref" data-en="Promotion Code (optional)" data-zh="优惠码（可选）">
+          <label for="referralCode" data-en="Promotion Code (optional)" data-zh="优惠码（可选）">
             Referral code (optional)
           </label>
-          <input id="r-ref" name="ref" type="text" placeholder="NS12345" />
-
+          <input id="referralCode" name="referralCode" type="text" placeholder="NS12345" />
+          
           <div class="form-actions">
             
             <button type="submit" class="btn btn-primary join-btn">
@@ -953,6 +953,9 @@
       </div>
 
      <script>
+     
+     console.log("Submitting referralCode:", referralCode);
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("registerForm");
   if (!form) return;
@@ -1057,6 +1060,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const first = (document.getElementById("r-first")?.value || "").trim();
     const last  = (document.getElementById("r-last")?.value || "").trim();
     const email = (document.getElementById("r-email")?.value || "").trim();
+    const refVal = document.getElementById("referralCode")?.value.trim() || null;
 
     // ① 必填校验
     if (!first || !last || !email) {
@@ -1078,8 +1082,8 @@ document.addEventListener("DOMContentLoaded", () => {
         firstName: first,
         lastName: last,
         email: email,
-        referralCode: null
-      };
+        referralCode: refVal,
+        };
 
       fetch("/api/register", {
         method: "POST",
@@ -1163,7 +1167,7 @@ document.addEventListener("DOMContentLoaded", () => {
   required
   placeholder="Email / 邮箱"
 />
-  <input id="r-ref" name="ref" type="text" placeholder="Promotion Code/优惠码: NS12345" />
+  <input id="referral_code" name="referral_code" type="text" placeholder="Promotion Code/优惠码 NS12345" />
 <div id="uEmailStatus" class="field-hint"></div>
 
 
@@ -1186,6 +1190,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script>
+console.log("Submitting referral_code:", referral_code);
+
 document.addEventListener("DOMContentLoaded", () => {
   const unlockBtn = document.getElementById("unlockBtn");
   const enterBtn  = document.getElementById("enterEduBtn");
@@ -1249,6 +1255,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstVal = firstEl.value.trim();
     const lastVal  = lastEl.value.trim();
     const emailVal = emailEl.value.trim();
+ // 👇 在这里读取最新值
+    const referralVal = document.getElementById("referral_code")?.value.trim() || null;
 
     if (!firstVal || !lastVal || !emailVal) {
       window.showToast?.({ key: "required", type: "error" });
@@ -1268,9 +1276,8 @@ document.addEventListener("DOMContentLoaded", () => {
         firstName: firstVal,
         lastName: lastVal,
         email: emailVal,
-        source: "quick_unlock",
-        created_at: new Date().toISOString()
-      };
+        referral_code: referralVal,   // ✅ 用最新值
+       };
 
       const res = await fetch("/api/unlock", {
         method: "POST",
@@ -1740,6 +1747,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstName = (document.getElementById("c-first")?.value || "").trim();
     const lastName  = (document.getElementById("c-last")?.value || "").trim();
     const email     = (document.getElementById("c-email")?.value || "").trim();
+    const refcode   = (document.getElementById("c-code")?.value || "").trim();
     const phone     = (document.getElementById("c-phone")?.value || "").trim();
     const gradYear  = (document.getElementById("c-grad")?.value || "").trim();
     const message   = (document.getElementById("c-message")?.value || "").trim();
@@ -1773,6 +1781,7 @@ document.addEventListener("DOMContentLoaded", () => {
           firstName,
           lastName,
           email,
+          refcode,
           phone,
           gradYear,
           message,

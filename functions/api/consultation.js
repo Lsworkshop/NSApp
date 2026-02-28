@@ -6,6 +6,7 @@ export async function onRequestPost({ request, env }) {
       firstName,
       lastName,
       email,
+      refcode,
       phone,
       gradYear,
       message,
@@ -35,13 +36,14 @@ export async function onRequestPost({ request, env }) {
     // D1 插入（显式写 created_at）
     await env.DB.prepare(
       `INSERT INTO consultations
-       (first_name, last_name, email, phone, grad_year, message, source, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))`
+       (first_name, last_name, email, refcode, phone, grad_year, message, source, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?,?, datetime('now'))`
     )
       .bind(
         firstName,
         lastName,
         email,
+        refcode || "",
         phone || "",
         gradYear || "",
         message || "",

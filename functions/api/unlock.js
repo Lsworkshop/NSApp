@@ -1,6 +1,7 @@
 export async function onRequestPost({ request, env }) {
   try {
     const data = await request.json();
+    console.log("SERVER RECEIVED:", data);   // 👈 加这一行
     const { firstName, lastName, email, referral_code } = data;
 
     // -------------- Email Format Check --------------
