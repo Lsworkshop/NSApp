@@ -18,7 +18,6 @@
 
   <link rel="stylesheet" href="/assets/css/main.css">
   <script src="/assets/js/lang.js" defer></script>
-  <script src="/assets/js/menu.js" defer></script>
   <script src="/assets/js/access.js" defer></script>
   <script src="/assets/js/auth-nav.js" defer></script>
   <script src="/assets/js/toast.js" defer></script>
@@ -672,25 +671,6 @@
   border-color: #2c9c47;
 }
 
-/* ===== FIX: Standalone PWA / mobile hero blocking hamburger ===== */
-@media (max-width: 1024px) {
-  /* 确保主页 hamburger 在 hero 上层可点击 */
-  #mobileMenuButton, #hamburgerButton {
-    position: relative; /* 或 absolute/fixed 根据你菜单布局 */
-    z-index: 9999;      /* 高于 hero 及图片层 */
-    pointer-events: auto; /* 确保触控事件生效 */
-  }
-
-  /* 防止 hero-right 或 hero 图像覆盖点击区域 */
-  .hero, .hero-right, .hero-left {
-    pointer-events: none; /* 禁止挡住按钮的点击事件 */
-  }
-
-  /* 保留按钮本身事件 */
-  #mobileMenuButton, #hamburgerButton {
-    pointer-events: auto;
-  }
-}
   </style>
 
   <main>
@@ -1841,6 +1821,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 </script>
+<script src="/assets/js/menu.js" defer></script>
 <script src="/assets/js/pwa-banner.js" defer></script>
 <script>
 if ("serviceWorker" in navigator) {
