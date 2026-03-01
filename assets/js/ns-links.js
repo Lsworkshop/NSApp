@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   // 1️⃣ 替换所有 input placeholder / value 中的虚拟推荐码 NS12345
-  document.querySelectorAll('input[name="ref"], input[placeholder*="NS12345"]').forEach(input => {
+  document.querySelectorAll('input[name="referralCode"], input[placeholder*="NS12345"]').forEach(input => {
     // 如果用户还没输入任何内容，就显示真实会员ID
     if (!input.value) {
       input.value = nsId;           // 设置实际显示的 value
@@ -189,4 +189,38 @@ document.addEventListener("DOMContentLoaded", () => {
       label.dataset.zh = label.dataset.zh.replace("NS12345", nsId);
     }
   });
+});
+
+// =========================================================
+// 3️⃣ 自动记录 NS 点击（解耦表单提交）
+// =========================================================
+document.addEventListener("DOMContentLoaded", () => {
+  // 获取真实会员ID
+  const nsId = (function() {
+    const m = location.pathname.match(/^\/(ns[0-9A-Za-z_-]+)/);
+    if (m) return m[1];
+    return sessionStorage.getItem("finova_ns") || "ns12345";
+  })();
+
+  if (!nsId) return;
+
+  // 捕获当前来源（可以是 URL 参数或默认）
+  const urlParams = new URLSearchParams(window.location.search);
+  const source = urlParams.get("source") || "ns_partner";
+
+  // 立即发送到 /api/ns-click 记录
+  fetch("/api/ns-click", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ns_id: nsId,
+      source,
+      timestamp: new Date().toISOString(),
+      user_agent: navigator.userAgent,
+      page_path: window.location.pathname
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log("NS click recorded:", data))
+  .catch(err => console.error("NS click record failed:", err));
 });
