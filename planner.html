@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Education Center — Edunova</title>
+
+<!-- icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<link rel="icon" sizes="192x192" href="/assets/icons/android-chrome-192.png">
+<link rel="icon" sizes="512x512" href="/assets/icons/android-chrome-512.png">
+<link rel="icon" href="/assets/icons/favicon.ico">
+
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/menu.js" defer></script>
+<script src="/assets/js/lang.js" defer></script>
+<script src="/assets/js/access.js" defer></script>
+<script src="/assets/js/auth-nav.js" defer></script>
+<script src="/assets/js/ns-links.js" defer></script>
+
+
+<style>
+* { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+/* ✅ 关键修正：为顶部导航让位 */
+body{
+  margin:0;
+  padding-top:96px;
+  font-family:Inter,system-ui,Arial;
+  background:var(--bg-soft);
+  color:var(--text);
+
+ margin:0;
+      /* ✅ English + Chinese (NO 黑体/Heiti) */
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        /* Chinese: lighter modern, avoid 黑体 */
+        "PingFang SC",
+        "HarmonyOS Sans SC",
+        "Source Han Sans SC",
+        "Noto Sans CJK SC",
+        "Noto Sans SC",
+        "Microsoft YaHei UI",
+        sans-serif;
+      background:#F9FAF7;
+      color:#2B2B2B;
+      line-height:1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Leave space for fixed nav */
+    .top-offset{ height: 86px; }
+
+    /* ===============================
+       Zone Backgrounds (as requested)
+    ================================ */
+    .zone{ padding: 52px 0; }
+    .zone-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .zone-a { background: #FFFFFF; }
+    .zone-b { background: #E8EEFF; }
+    .zone-c { background: #EFE4FF; }
+    .zone-d { background: #F8F9F6; }
+
+
+/* =========================
+   HERO (Scholarship) FIX
+   解决：内容挤左侧、右侧空白
+========================= */
+
+.hero{
+  padding: 34px 0 10px;
+  background:
+    radial-gradient(900px 380px at 12% 0%, rgba(59,130,246,0.12), transparent 60%),
+    radial-gradient(900px 380px at 88% 0%, rgba(139,92,246,0.12), transparent 60%);
+}
+
+/* 关键：保证 hero-split 在容器内居中且两列都能拉伸 */
+.hero-split{
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 42px;
+  align-items: center;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 26px;
+
+  /* 关键：强制占满容器宽度 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 左侧文字列：允许内容撑开，不要自己缩小 */
+.hero-content{
+  min-width: 0;
+  justify-self: stretch;
+}
+
+/* 右侧图片列：必须拉满，避免“缩成一小块靠左” */
+.hero-media{
+  min-width: 0;
+  justify-self: stretch;
+  width: 100%;
+}
+
+/* 图片必须 100% 宽度，否则会出现右侧空白 */
+.hero-media img{
+  display: block;
+  width: 100%;
+  height: auto;
+
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+}
+
+/* Mobile：改为一列居中 */
+@media (max-width: 860px){
+  .hero-split{
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero-media{
+    order: -1; /* 如果你希望先图后文，可保留；不需要就删掉 */
+  }
+
+  .hero-media img{
+    max-height: 260px;
+    object-fit: cover;
+  }
+}
+
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      border-radius: 999px;
+      font-weight: 475;
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+      user-select:none;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color:#fff;
+      box-shadow: 0 12px 26px rgba(99,102,241,0.28);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-primary:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(99,102,241,0.42);
+    }
+
+    .btn-secondary{
+      background: rgba(255,255,255,0.82);
+      color:#2563eb;
+      border: 1px solid rgba(37,99,235,0.26);
+      box-shadow: 0 10px 22px rgba(20,30,60,0.08);
+    }
+    .btn-secondary:hover{
+      transform: translateY(-2px);
+      border-color: rgba(37,99,235,0.40);
+      box-shadow: 0 14px 30px rgba(20,30,60,0.12);
+    }
+
+
+.planner-section{
+  padding:80px 20px;
+}
+
+.planner-container{
+  max-width:800px;
+  margin:0 auto;
+}
+
+
+.planner-trust{
+  padding:50px 20px;
+}
+
+.trust-grid{
+  max-width:1200px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+  gap:20px;
+}
+
+.trust-item{
+  background:#fff;
+
+  border-radius:16px;
+
+  padding:25px;
+
+  text-align:center;
+
+  font-weight:600;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.05);
+}
+
+
+.progress-wrapper{
+  margin-bottom:40px;
+}
+
+#progressText{
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+.progress-bar{
+  width:100%;
+  height:10px;
+
+  background:#d9e3ff;
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.progress-fill{
+  width:14%;
+
+  height:100%;
+
+  background:#4A6CF7;
+
+  transition:.4s;
+}
+
+
+.planner-card{
+
+  background:#fff;
+
+  border-radius:24px;
+
+  padding:40px;
+
+  min-height:350px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+.step{
+  display:none;
+}
+
+.step.active{
+  display:block;
+}
+
+.step h2{
+
+  margin-bottom:30px;
+
+  font-size:2rem;
+
+  line-height:1.4;
+
+}
+
+.option-grid{
+
+  display:grid;
+
+  gap:15px;
+
+}
+
+.option-grid button{
+
+  border:none;
+
+  background:#f5f7ff;
+
+  padding:18px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  font-size:1rem;
+
+}
+
+.option-grid button:hover{
+
+  background:#4A6CF7;
+
+  color:white;
+
+}
+
+input[type=text],
+input[type=email]{
+
+  width:100%;
+
+  padding:16px;
+
+  border-radius:12px;
+
+  border:1px solid #ddd;
+
+  margin-bottom:20px;
+
+  font-size:1rem;
+
+}
+
+input[type=range]{
+
+  width:100%;
+
+  margin:20px 0;
+
+}
+
+.slider-value{
+
+  text-align:center;
+
+  font-size:2rem;
+
+  font-weight:700;
+
+  margin-bottom:15px;
+
+}
+
+.continue-btn{
+
+  background:#4A6CF7;
+
+  color:white;
+
+  border:none;
+
+  padding:14px 28px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+}
+
+.continue-btn:hover{
+
+  opacity:.9;
+
+}
+
+.loading-box{
+
+  max-width:700px;
+
+  margin:auto;
+
+  text-align:center;
+
+  padding:100px 20px;
+
+}
+
+.loading-box h2{
+
+  margin-bottom:20px;
+
+}
+
+.results-container{
+
+  max-width:1000px;
+
+  margin:auto;
+
+  padding:80px 20px;
+
+  display:grid;
+
+  gap:25px;
+
+}
+
+.result-card{
+
+  background:white;
+
+  border-radius:20px;
+
+  padding:30px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.05);
+
+}
+
+.result-card h3{
+
+  margin-bottom:15px;
+
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:768px){
+
+  .planner-card{
+
+    padding:25px;
+
+  }
+
+  .step h2{
+
+    font-size:1.5rem;
+
+  }
+
+}
+
+
+</style>
+</head>
+
+<body class="page-education" data-page="quick-required">
+
+<!-- NAV -->
+<nav id="topNav" class="nav--transparent">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <div class="brand">
+      <a href="/index.html#home" class="brand">
+        <img src="/assets/img/superedu-logo.png" alt="Edunova" class="logo-img" />
+        <span class="brand-text">Edunova</span>
+      </a>
+    </div>
+
+    <!-- =========================
+         Desktop Menu
+    ========================== -->
+    <div class="menu" id="menu">
+
+      <!-- Home -->
+      <a href="/aid.html" data-en="Financial Aid Cal" data-zh="助学金计算"> </a>
+
+      <!-- About -->
+      <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+    <!-- Programs Dropdown -->
+<div class="nav-item dropdown">
+
+  <span class="dropdown-toggle"
+        role="button"
+        aria-haspopup="true"
+        tabindex="0"
+        data-en="AI ⬇︎"
+        data-zh="AI ⬇︎"> 
+  </span> 
+
+  <div class="dropdown-menu">
+    <a href="planner.html"
+       id="navEduCenter"
+       data-en="Funding Planner"
+       data-zh="教育金规划">
+      EduCenter
+    </a>
+
+    <a href="community.html"
+       id="navEduCommunity"
+       data-en="AI Community"
+       data-zh="AI 社区">
+      EduCommunity
+    </a>
+
+    <a href="forum.html"
+       id="navForum"
+       data-en="AI Forum"
+       data-zh="AI 论坛">
+      EduForum 
+    </a>
+
+    <a href="/events.html" data-en="Events" data-zh="活动"> Events</a>
+    
+  </div>
+
+</div>
+
+      <!-- Services -->
+      <a href="/index.html#services" data-en="Services" data-zh="服务">Services</a>
+
+      <!-- Membership -->
+     <a href="membership.html" id="navMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+      <!-- Get Involved Dropdown -->
+<div class="nav-item dropdown">
+  <span class="dropdown-toggle" role="button" aria-haspopup="true" tabindex="0"
+        data-en="Get Involved ⬇︎" data-zh="参与方式 ⬇︎">
+   
+</span>
+
+  <div class="dropdown-menu">
+    <a href="volunteer.html"
+       data-en="Volunteer"
+       data-zh="志愿者">
+      Volunteer
+    </a>
+
+    <a href="donation.html"
+       data-en="Donation"
+       data-zh="捐赠">
+      Donation
+    </a>
+
+    <a href="scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
+      scholarship
+    </a>
+
+    <a href="/index.html#resources"
+       data-en="Resources"
+       data-zh="资源">
+      Resources
+    </a>
+  </div>
+</div>
+
+      <!-- Contact -->
+      <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+
+      <!-- Login -->
+     <a href="login.html" id="desktopAuth" data-en="Login" data-zh="登录">Login</a>
+
+      <!-- Slide underline -->
+      <span class="nav-underline"></span>
+    </div>
+
+    <!-- Right side -->
+    <div class="nav-right">
+      <button id="langToggle" class="lang-toggle" aria-label="Language toggle">
+        中文
+      </button>
+
+      <button id="hamburger" class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile slide menu -->
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <!-- Home -->
+    <a href="/aid.html" data-en="Financial Aid Cal" data-zh="助学金计算"> </a>
+
+    <!-- About -->
+    <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+    <!-- Programs Accordion -->
+    <details class="mobile-group">
+      <summary data-en="Programs" data-zh="项目">Programs</summary>
+      <a href="planner.html" id="mobileEduCenter" data-en="Funding Planner" data-zh="教育金规划">EduCenter</a>
+      <a href="community.html" id="mobileEduCommunity" data-en="AICommunity" data-zh="AI社区">EduCommunity</a>
+      <a href="forum.html" id="mobileForum" data-en="AIForum" data-zh="AI论坛">EduForum</a>
+      <a href="events.html" data-en="Events" data-zh="活动">Events</a>
+    </details>
+
+    <!-- Service -->
+    <a href="/index.html#services" data-en="Service" data-zh="服务">Service</a>
+
+    <!-- Membership -->
+    <a href="membership.html" id="mobileMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+    <!-- Get Involved Accordion -->
+    <details class="mobile-group">
+      <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
+      <a href="volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
+      <a href="donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
+      <a href="scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
+      scholarship
+    </a>
+      <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
+    </details>
+
+    <!-- Contact -->
+    <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+
+    <!-- Login -->
+    <a href="login.html" id="mobileAuth" data-en="Login" data-zh="登录">Login</a>
+
+    <!-- Mobile action buttons -->
+    <div class="mobile-actions">
+      <button class="btn btn-ghost" id="mobileRegister" data-en="Register/Join" data-zh="注册/加入">
+        Register / Join
+      </button>
+      <button class="btn" id="mobileUnlock" data-en="Unlock Education" data-zh="解锁教育">
+        Unlock Education
+      </button>
+    </div>
+  </div>
+</nav>
+
+ <!-- ========================================= -->
+<!-- AI FUNDING PLANNER -->
+<!-- ========================================= -->
+
+<section class="hero hero-split zone-a">
+
+  <div class="hero-media">
+    <img
+      src="/assets/img/ai-funding-hero.jpg"
+      alt="AI Funding Planner">
+  </div>
+
+  <div class="hero-content">
+
+    <div class="hero-kicker"
+       data-en="Helping Families Optimize Financial Aid 🎒 Scholarship Opportunities"
+       data-zh="支持优化家庭资产结构🎒多得助学金奖学金计划">
+    Scholarship Support • Education Accounts & Tax-Efficient Planning 🎒 Edunova Foundation • Scholarship Program
+   </div>
+
+  <h1 data-en="AI Funding Planner"
+      data-zh="AI 大学资金规划助手">
+   AI Funding Planner
+  </h1>
+
+  <p data-en="Answer a few questions and receive a personalized college funding strategy."
+     data-zh="回答几个简单问题，获得个性化大学资金规划建议。">
+    Answer a few questions and receive a personalized college funding strategy.
+  </p>
+
+  <p data-en="We provide complimentary guidance on maximizing financial aid and scholarship opportunities."
+     data-zh="提供免费咨询如何多得助学金奖学金，欢迎联系我们！">
+    Answer a few questions and receive a personalized college funding strategy.
+  </p>
+
+  <div class="hero-actions">
+
+    <a class="btn btn-primary" href="/scholarship.html"
+       data-en="Support Scholarships"
+       data-zh="支持奖学金">
+      Learn About Scholarships
+    </a>
+
+    <a class="btn btn-secondary" href="/apply.html"
+       data-en="Apply / Request a Consultation"
+       data-zh="申请 / 提交咨询">
+      Apply / Request a Consultation
+    </a>
+
+  </div>   
+
+</div>
+
+</section>
+
+<!-- PLANNER -->
+
+<section
+ id="planner-start"
+ class="planner-section zone-c">
+
+  <div class="planner-container">
+
+    <!-- Progress -->
+
+    <div class="progress-wrapper">
+
+      <div id="progressText">
+        Step 1 of 7
+      </div>
+
+      <div class="progress-bar">
+        <div
+          id="progressFill"
+          class="progress-fill"></div>
+      </div>
+
+    </div>
+
+    <!-- QUESTION CARD -->
+
+    <div
+      id="plannerCard"
+      class="planner-card">
+
+      <!-- Step 1 -->
+
+      <div class="step active" data-step="1">
+
+        <h2
+         data-en="What grade is the student currently in?"
+         data-zh="学生目前所在年级？">
+         What grade is the student currently in?
+        </h2>
+
+        <div class="option-grid">
+
+          <button onclick="selectGrade('9th Grade')">9th Grade</button>
+
+          <button onclick="selectGrade('10th Grade')">10th Grade</button>
+
+          <button onclick="selectGrade('11th Grade')">11th Grade</button>
+
+          <button onclick="selectGrade('12th Grade')">12th Grade</button>
+
+          <button onclick="selectGrade('College Student')">
+            College Student
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Step 2 -->
+
+      <div class="step" data-step="2">
+
+        <h2
+          data-en="Which state do you live in?"
+          data-zh="您所在的州？">
+          Which state do you live in?
+        </h2>
+
+        <input
+          id="stateInput"
+          type="text"
+          list="states"
+          placeholder="California">
+
+        <datalist id="states">
+          <option value="California">
+          <option value="Texas">
+          <option value="Florida">
+          <option value="New York">
+          <option value="Washington">
+        </datalist>
+
+        <button
+          class="continue-btn"
+          onclick="saveState()">
+          Continue
+        </button>
+
+      </div>
+
+      <!-- Step 3 -->
+
+      <div class="step" data-step="3">
+
+        <h2>GPA</h2>
+
+        <div class="slider-value">
+          <span id="gpaValue">3.0</span>
+        </div>
+
+        <input
+          id="gpaSlider"
+          type="range"
+          min="2.0"
+          max="4.0"
+          step="0.1"
+          value="3.0">
+
+        <button
+          class="continue-btn"
+          onclick="saveGpa()">
+          Continue
+        </button>
+
+      </div>
+
+      <!-- Step 4 -->
+
+      <div class="step" data-step="4">
+
+        <h2
+          data-en="Intended Major"
+          data-zh="计划专业">
+          Intended Major
+        </h2>
+
+        <input
+          id="majorInput"
+          type="text"
+          placeholder="Computer Science">
+
+        <button
+          class="continue-btn"
+          onclick="saveMajor()">
+          Continue
+        </button>
+
+      </div>
+
+      <!-- Step 5 -->
+
+      <div class="step" data-step="5">
+
+        <h2
+          data-en="Household Size"
+          data-zh="家庭人数">
+          Household Size
+        </h2>
+
+        <div class="slider-value">
+          <span id="householdValue">4</span>
+        </div>
+
+        <input
+          id="householdSlider"
+          type="range"
+          min="1"
+          max="10"
+          value="4">
+
+        <button
+          class="continue-btn"
+          onclick="saveHousehold()">
+          Continue
+        </button>
+
+      </div>
+
+      <!-- Step 6 -->
+
+      <div class="step" data-step="6">
+
+        <h2
+          data-en="Household Income"
+          data-zh="家庭收入">
+          Household Income
+        </h2>
+
+        <div class="option-grid">
+
+          <button onclick="saveIncome('Under 25K')">
+            Under $25K
+          </button>
+
+          <button onclick="saveIncome('25K-50K')">
+            $25K-$50K
+          </button>
+
+          <button onclick="saveIncome('50K-75K')">
+            $50K-$75K
+          </button>
+
+          <button onclick="saveIncome('75K-100K')">
+            $75K-$100K
+          </button>
+
+          <button onclick="saveIncome('100K+')">
+            $100K+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Step 7 -->
+
+      <div class="step" data-step="7">
+
+        <h2>Email</h2>
+
+        <input
+          id="emailInput"
+          type="email"
+          placeholder="your@email.com">
+
+        <button
+          class="continue-btn"
+          onclick="generatePlan()">
+
+          Generate My Funding Plan
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LOADING -->
+
+<section
+ id="loadingScreen"
+ class="zone-c hidden">
+
+ <div class="loading-box">
+
+   <h2>Generating Your Funding Plan...</h2>
+
+   <p id="loadingMessage">
+     Analyzing Profile...
+   </p>
+
+ </div>
+
+</section>
+
+<!-- RESULTS -->
+
+<section
+ id="resultsScreen"
+ class="zone-d hidden">
+
+  <div class="results-container">
+
+    <div class="result-card">
+      <h3>Funding Summary</h3>
+      <p id="summaryResult"></p>
+    </div>
+
+    <div class="result-card">
+      <h3>Scholarship Strategy</h3>
+      <p id="scholarshipResult"></p>
+    </div>
+
+    <div class="result-card">
+      <h3>Financial Aid Strategy</h3>
+      <p id="aidResult"></p>
+    </div>
+
+    <div class="result-card">
+      <h3>Next Steps</h3>
+      <p id="nextResult"></p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TRUST BAR -->
+
+<section class="zone-b planner-trust">
+
+  <div class="trust-grid">
+
+    <div class="trust-item">
+      🎓
+      <span
+        data-en="Personalized Strategy"
+        data-zh="个性化规划">
+        Personalized Strategy
+      </span>
+    </div>
+
+    <div class="trust-item">
+      💰
+      <span
+        data-en="Funding Opportunities"
+        data-zh="资金机会分析">
+        Funding Opportunities
+      </span>
+    </div>
+
+    <div class="trust-item">
+      🏆
+      <span
+        data-en="Scholarship Guidance"
+        data-zh="奖学金指导">
+        Scholarship Guidance
+      </span>
+    </div>
+
+    <div class="trust-item">
+      📚
+      <span
+        data-en="Educational Resource"
+        data-zh="教育公益资源">
+        Educational Resource
+      </span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+   <!-- FOOTER -->
+<footer>
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="footer-social-bar">
+
+  <a href="https://www.youtube.com/@EdunovaFdn" target="_blank" aria-label="YouTube" class="footer-icon">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+
+
+  <a href="https://www.instagram.com/edunovafdn" target="_blank" aria-label="Instagram" class="footer-icon">
+    <i class="fa-brands fa-instagram"></i>
+
+
+  <a href="https://www.linkedin.com/company/edunovafdn" target="_blank" aria-label="LinkedIn" class="footer-icon">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  
+  <a href="https://www.facebook.com/EdunovaFdn" target="_blank" aria-label="Facebook" class="footer-icon">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="https://us02web.zoom.us/meeting/register/6PboWasUQKuyW11HXY0HdQ" target="_blank" aria-label="Zoom" class="footer-icon">
+    <i class="fa-solid fa-video"></i>
+  </a>
+
+  <a href="https://x.com/EdunovaFdn" target="_blank" aria-label="X" class="footer-icon">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+</div>
+
+  <div class="footer-inner">
+
+    <!-- Column 1 -->
+    <div class="footer-col">
+      <h4>Finova</h4>
+      <a href="/apply.html" target="_blank"
+         data-en="Apply for Services"
+         data-zh="申请服务">
+        申请服务
+      </a>
+      <a href="/membership.html"
+         data-en="Membership"
+         data-zh="会员中心">
+        会员中心
+      </a>
+
+      <a href="https://www.Edunovafdn.com/" target="_blank"
+         data-en="Edunova Foundation"
+         data-zh="超能教育基金会">
+      </a>
+
+    </div>
+
+    <!-- Column 2 -->
+    <div class="footer-col">
+      <h4 data-en="Financial Plans" data-zh="财务规划">
+        教育与基金
+      </h4>
+       
+      <a href="https://www.lsfinova.com/plan"
+         data-en="FinPlanning" target="_blank"
+         data-zh="税优稳健产品">
+        会员中心
+      </a>
+
+      <a href="#resources"
+         data-en="Resources"
+         data-zh="学习资源">
+        学习资源
+      </a>
+      <a href="https://www.lsfinova.com/aid" target="_blank"
+         data-en="Aid Calculator"
+         data-zh="教育资助计算器">
+        教育资助计算器
+      </a>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="footer-col">
+      <h4 data-en="Contact" data-zh="联系我们">
+        联系我们
+      </h4>
+      <div class="muted"
+           data-en="NS Federation"
+           data-zh="NS Federation">
+        
+      </div>
+      <div class="muted"
+           data-en="Education Area"
+           data-zh="教育板块">
+        
+      </div>
+      <div class="muted"
+           data-en="Scholarship & Financial Aid"
+           data-zh="奖助学金">
+     
+      </div>
+    </div>
+
+    <!-- Column 4 -->
+    <div class="footer-col">
+      <h4 data-en="Legal" data-zh="法律信息">
+        法律信息
+      </h4>
+      <a href="/privacy.html" target="_blank"
+         data-en="Privacy Policy"
+         data-zh="隐私政策">
+        隐私政策
+      </a>
+      <a href="/terms.html" target="_blank"
+         data-en="Terms of Service"
+         data-zh="服务条款">
+        服务条款
+      </a>
+
+      <a href="https://us02web.zoom.us/meeting/register/OTK5r59URLODa2eWFv5b0A" target="_blank"  
+         data-en="Zoom Webinar"
+         data-zh="Zoom讲座">
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer-copy"
+       data-en="© 2025 Edunova Foundation. All rights reserved."
+       data-zh="© 2025 Edunova Foundation 版权所有">
+    © 2025 Edunova Foundation 版权所有
+  </div>
+</footer>
+
+<script>
+
+let currentStep = 1;
+
+const plannerData = {
+  grade: "",
+  state: "",
+  gpa: "",
+  major: "",
+  householdSize: "",
+  income: "",
+  email: ""
+};
+
+function showStep(step) {
+
+  document
+    .querySelectorAll(".step")
+    .forEach(el => el.classList.remove("active"));
+
+  document
+    .querySelector(`[data-step="${step}"]`)
+    .classList.add("active");
+
+  currentStep = step;
+
+  document.getElementById("progressText").innerHTML =
+    `Step ${step} of 7`;
+
+  document.getElementById("progressFill").style.width =
+    `${(step / 7) * 100}%`;
+}
+
+function selectGrade(value) {
+  plannerData.grade = value;
+  showStep(2);
+}
+
+function saveState() {
+  plannerData.state =
+    document.getElementById("stateInput").value;
+  showStep(3);
+}
+
+function saveGpa() {
+  plannerData.gpa =
+    document.getElementById("gpaSlider").value;
+  showStep(4);
+}
+
+function saveMajor() {
+  plannerData.major =
+    document.getElementById("majorInput").value;
+  showStep(5);
+}
+
+function saveHousehold() {
+  plannerData.householdSize =
+    document.getElementById("householdSlider").value;
+  showStep(6);
+}
+
+function saveIncome(value) {
+  plannerData.income = value;
+  showStep(7);
+}
+
+function generatePlan() {
+
+  plannerData.email =
+    document.getElementById("emailInput").value;
+
+  document
+    .querySelector(".planner-section")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loadingScreen")
+    .classList.remove("hidden");
+
+  setTimeout(() => {
+
+    document
+      .getElementById("loadingScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("resultsScreen")
+      .classList.remove("hidden");
+
+    buildMockPlan();
+
+  }, 4000);
+}
+
+function buildMockPlan() {
+
+  document.getElementById("summaryResult").innerHTML =
+    "Strong academic profile with potential funding opportunities.";
+
+  document.getElementById("scholarshipResult").innerHTML =
+    "Focus on merit-based scholarships and STEM-related awards.";
+
+  document.getElementById("aidResult").innerHTML =
+    "Complete FAFSA early and review state grant programs.";
+
+  document.getElementById("nextResult").innerHTML =
+    "Research scholarship deadlines and prepare application materials.";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  document
+    .getElementById("gpaSlider")
+    .addEventListener("input", e => {
+
+      document.getElementById("gpaValue").innerHTML =
+        e.target.value;
+
+    });
+
+  document
+    .getElementById("householdSlider")
+    .addEventListener("input", e => {
+
+      document.getElementById("householdValue").innerHTML =
+        e.target.value;
+
+    });
+
+  showStep(1);
+
+});
+
+</script>
+
+</body>
+
+</html>
