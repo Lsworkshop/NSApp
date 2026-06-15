@@ -786,284 +786,650 @@ input[type=range]{
   </header>
 
 
-<!-- PLANNER -->
+<!-- ===================================================== -->
+<!-- AI FUNDING PLANNER -->
+<!-- ===================================================== -->
 
 <section
- id="planner-start"
- class="planner-section zone-c">
+id="planner-start"
+class="planner-section zone-c">
 
-  <div class="planner-container">
+<div class="planner-container">
 
-    <!-- Progress -->
+<!-- Progress -->
 
-    <div class="progress-wrapper">
+<div class="progress-wrapper">
 
-      <div id="progressText">
-        Step 1 of 7
-      </div>
+<div id="progressText">
+Step 1 of 10
+</div>
 
-      <div class="progress-bar">
-        <div
-          id="progressFill"
-          class="progress-fill"></div>
-      </div>
+<div class="progress-bar">
+<div
+id="progressFill"
+class="progress-fill">
+</div>
+</div>
 
-    </div>
+</div>
 
-    <!-- QUESTION CARD -->
+<!-- ===================================================== -->
+<!-- QUESTION CARD -->
+<!-- ===================================================== -->
 
-    <div
-      id="plannerCard"
-      class="planner-card">
+<div
+id="plannerCard"
+class="planner-card">
 
-      <!-- Step 1 -->
+<!-- STEP 1 -->
 
-      <div class="step active" data-step="1">
+<div class="step active" data-step="1">
 
-        <h2
-         data-en="What grade is the student currently in?"
-         data-zh="学生目前所在年级？">
-         What grade is the student currently in?
-        </h2>
+<h2
+data-en="What grade is the student currently in?"
+data-zh="学生目前所在年级？">
 
-        <div class="option-grid">
+What grade is the student currently in?
 
-          <button onclick="selectGrade('9th Grade')">9th Grade</button>
+</h2>
 
-          <button onclick="selectGrade('10th Grade')">10th Grade</button>
+<div class="option-grid">
 
-          <button onclick="selectGrade('11th Grade')">11th Grade</button>
+<button onclick="selectGrade('9th Grade')">
+9th Grade
+</button>
 
-          <button onclick="selectGrade('12th Grade')">12th Grade</button>
+<button onclick="selectGrade('10th Grade')">
+10th Grade
+</button>
 
-          <button onclick="selectGrade('College Student')">
-            College Student
-          </button>
+<button onclick="selectGrade('11th Grade')">
+11th Grade
+</button>
 
-        </div>
+<button onclick="selectGrade('12th Grade')">
+12th Grade
+</button>
 
-      </div>
+<button onclick="selectGrade('College Student')">
+College Student
+</button>
 
-      <!-- Step 2 -->
+</div>
 
-      <div class="step" data-step="2">
+</div>
 
-        <h2
-          data-en="Which state do you live in?"
-          data-zh="您所在的州？">
-          Which state do you live in?
-        </h2>
+<!-- STEP 2 -->
 
-        <input
-          id="stateInput"
-          type="text"
-          list="states"
-          placeholder="California">
+<div class="step" data-step="2">
 
-        <datalist id="states">
-          <option value="California">
-          <option value="Texas">
-          <option value="Florida">
-          <option value="New York">
-          <option value="Washington">
-        </datalist>
+<h2
+data-en="Which state or country do you live in?"
+data-zh="您所在的州或国家？">
 
-        <button
-          class="continue-btn"
-          onclick="saveState()">
-          Continue
-        </button>
+Which state or country do you live in?
 
-      </div>
+</h2>
 
-      <!-- Step 3 -->
+<select id="stateInput">
 
-      <div class="step" data-step="3">
+<option value="">Select</option>
 
-        <h2>GPA</h2>
+<option>California</option>
+<option>Texas</option>
+<option>Florida</option>
+<option>New York</option>
+<option>Washington</option>
+<option>Illinois</option>
+<option>Massachusetts</option>
+<option>Virginia</option>
+<option>Ohio</option>
+<option>Pennsylvania</option>
 
-        <div class="slider-value">
-          <span id="gpaValue">3.0</span>
-        </div>
+<option>Other U.S. State</option>
 
-        <input
-          id="gpaSlider"
-          type="range"
-          min="2.0"
-          max="4.0"
-          step="0.1"
-          value="3.0">
+<option>Outside United States</option>
 
-        <button
-          class="continue-btn"
-          onclick="saveGpa()">
-          Continue
-        </button>
+</select>
 
-      </div>
+<div class="step-nav">
 
-      <!-- Step 4 -->
+<button
+class="prev-btn"
+onclick="showStep(1)">
+Previous
+</button>
 
-      <div class="step" data-step="4">
+<button
+class="continue-btn"
+onclick="saveState()">
+Next
+</button>
 
-        <h2
-          data-en="Intended Major"
-          data-zh="计划专业">
-          Intended Major
-        </h2>
+</div>
 
-        <input
-          id="majorInput"
-          type="text"
-          placeholder="Computer Science">
+</div>
 
-        <button
-          class="continue-btn"
-          onclick="saveMajor()">
-          Continue
-        </button>
+<!-- STEP 3 -->
 
-      </div>
+<div class="step" data-step="3">
 
-      <!-- Step 5 -->
+<h2
+data-en="Current GPA Range"
+data-zh="当前 GPA 区间">
 
-      <div class="step" data-step="5">
+Current GPA Range
 
-        <h2
-          data-en="Household Size"
-          data-zh="家庭人数">
-          Household Size
-        </h2>
+</h2>
 
-        <div class="slider-value">
-          <span id="householdValue">4</span>
-        </div>
+<div class="option-grid">
 
-        <input
-          id="householdSlider"
-          type="range"
-          min="1"
-          max="10"
-          value="4">
+<button onclick="saveGpa('Below 2.5')">
+Below 2.5
+</button>
 
-        <button
-          class="continue-btn"
-          onclick="saveHousehold()">
-          Continue
-        </button>
+<button onclick="saveGpa('2.5 - 3.0')">
+2.5 - 3.0
+</button>
 
-      </div>
+<button onclick="saveGpa('3.0 - 3.5')">
+3.0 - 3.5
+</button>
 
-      <!-- Step 6 -->
+<button onclick="saveGpa('3.5 - 3.8')">
+3.5 - 3.8
+</button>
 
-      <div class="step" data-step="6">
+<button onclick="saveGpa('3.8+')">
+3.8+
+</button>
 
-        <h2
-          data-en="Household Income"
-          data-zh="家庭收入">
-          Household Income
-        </h2>
+</div>
 
-        <div class="option-grid">
+<div class="step-nav">
 
-          <button onclick="saveIncome('Under 25K')">
-            Under $25K
-          </button>
+<button
+class="prev-btn"
+onclick="showStep(2)">
+Previous
+</button>
 
-          <button onclick="saveIncome('25K-50K')">
-            $25K-$50K
-          </button>
+</div>
 
-          <button onclick="saveIncome('50K-75K')">
-            $50K-$75K
-          </button>
+</div>
 
-          <button onclick="saveIncome('75K-100K')">
-            $75K-$100K
-          </button>
+<!-- STEP 4 -->
 
-          <button onclick="saveIncome('100K+')">
-            $100K+
-          </button>
+<div class="step" data-step="4">
 
-        </div>
+<h2
+data-en="Future College Major or Career Interest"
+data-zh="未来大学专业或职业方向">
 
-      </div>
+Future College Major or Career Interest
 
-      <!-- Step 7 -->
+</h2>
 
-      <div class="step" data-step="7">
+<select id="majorInput">
 
-        <h2>Email</h2>
+<option>
+Computer Science
+</option>
 
-        <input
-          id="emailInput"
-          type="email"
-          placeholder="your@email.com">
+<option>
+Engineering
+</option>
 
-        <button
-          class="continue-btn"
-          onclick="generatePlan()">
+<option>
+Healthcare
+</option>
 
-          Generate My Funding Plan
+<option>
+Business
+</option>
 
-        </button>
+<option>
+Education
+</option>
 
-      </div>
+<option>
+Arts & Design
+</option>
 
-    </div>
+<option>
+Law
+</option>
 
-  </div>
+<option>
+Undecided
+</option>
+
+</select>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(3)">
+Previous
+</button>
+
+<button
+class="continue-btn"
+onclick="saveMajor()">
+Next
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 5 -->
+
+<div class="step" data-step="5">
+
+<h2
+data-en="Household Size"
+data-zh="家庭人数">
+
+Household Size
+
+</h2>
+
+<select id="householdInput">
+
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option selected>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8+</option>
+
+</select>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(4)">
+Previous
+</button>
+
+<button
+class="continue-btn"
+onclick="saveHousehold()">
+Next
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 6 -->
+
+<div class="step" data-step="6">
+
+<h2
+data-en="Estimated Household MAGI"
+data-zh="家庭预估 MAGI 收入">
+
+Estimated Household MAGI
+
+</h2>
+
+<div class="option-grid">
+
+<button onclick="saveIncome('Under 30K')">
+Under $30K
+</button>
+
+<button onclick="saveIncome('30K-60K')">
+$30K-$60K
+</button>
+
+<button onclick="saveIncome('60K-100K')">
+$60K-$100K
+</button>
+
+<button onclick="saveIncome('100K-150K')">
+$100K-$150K
+</button>
+
+<button onclick="saveIncome('150K+')">
+$150K+
+</button>
+
+</div>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(5)">
+Previous
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 7 -->
+
+<div class="step" data-step="7">
+
+<h2
+data-en="Household Assets"
+data-zh="家庭净资产">
+
+Household Assets
+
+</h2>
+
+<div class="option-grid">
+
+<button onclick="saveAssets('Under 10K')">
+Under $10K
+</button>
+
+<button onclick="saveAssets('10K-50K')">
+$10K-$50K
+</button>
+
+<button onclick="saveAssets('50K-100K')">
+$50K-$100K
+</button>
+
+<button onclick="saveAssets('100K-250K')">
+$100K-$250K
+</button>
+
+<button onclick="saveAssets('250K+')">
+$250K+
+</button>
+
+</div>
+
+<p class="asset-note">
+
+Included:
+Cash, Savings, Investments, 529 Plans
+
+<br>
+
+Excluded:
+Primary Residence, Retirement Accounts,
+Vehicles
+
+</p>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(6)">
+Previous
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 8 -->
+
+<div class="step" data-step="8">
+
+<h2
+data-en="Special Circumstances"
+data-zh="特殊情况">
+
+Special Circumstances
+
+</h2>
+
+<div class="checkbox-group">
+
+<label>
+<input type="checkbox" value="First Generation">
+First Generation Student
+</label>
+
+<label>
+<input type="checkbox" value="Military Family">
+Military Family
+</label>
+
+<label>
+<input type="checkbox" value="Foster Youth">
+Foster Youth
+</label>
+
+<label>
+<input type="checkbox" value="Disability">
+Disability
+</label>
+
+</div>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(7)">
+Previous
+</button>
+
+<button
+class="continue-btn"
+onclick="saveSpecialStatus()">
+Next
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 9 REVIEW -->
+
+<div class="step" data-step="9">
+
+<h2
+data-en="Review Your Profile"
+data-zh="检查您的资料">
+
+Review Your Profile
+
+</h2>
+
+<div id="reviewContent">
+
+<!-- JS自动生成 -->
+
+</div>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(8)">
+Previous
+</button>
+
+<button
+class="continue-btn"
+onclick="showStep(10)">
+Continue
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 10 -->
+
+<div class="step" data-step="10">
+
+<h2
+data-en="Ready to Generate Your Funding Plan?"
+data-zh="准备生成您的 Funding Plan？">
+
+Ready to Generate Your Funding Plan?
+
+</h2>
+
+<div class="step-nav">
+
+<button
+class="prev-btn"
+onclick="showStep(9)">
+Previous
+</button>
+
+<button
+class="continue-btn"
+onclick="generatePlan()">
+
+Generate My Funding Plan
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
+<!-- ===================================================== -->
 <!-- LOADING -->
+<!-- ===================================================== -->
 
 <section
- id="loadingScreen"
- class="zone-c hidden">
+id="loadingScreen"
+class="zone-c hidden">
 
- <div class="loading-box">
+<div class="loading-box">
 
-   <h2>Generating Your Funding Plan...</h2>
+<h2
+data-en="Generating Your Funding Plan..."
+data-zh="正在生成您的 Funding Plan...">
 
-   <p id="loadingMessage">
-     Analyzing Profile...
-   </p>
+Generating Your Funding Plan...
 
- </div>
+</h2>
+
+<p id="loadingMessage">
+
+Analyzing Profile...
+
+</p>
+
+</div>
 
 </section>
 
+<!-- ===================================================== -->
 <!-- RESULTS -->
+<!-- ===================================================== -->
 
 <section
- id="resultsScreen"
- class="zone-c hidden">
+id="resultsScreen"
+class="zone-c hidden">
 
-  <div class="results-container">
+<div class="results-container">
 
-    <div class="result-card">
-      <h3>Funding Summary</h3>
-      <p id="summaryResult"></p>
-    </div>
+<div class="result-card">
 
-    <div class="result-card">
-      <h3>Scholarship Strategy</h3>
-      <p id="scholarshipResult"></p>
-    </div>
+<h3
+data-en="Funding Summary"
+data-zh="资金规划总结">
 
-    <div class="result-card">
-      <h3>Financial Aid Strategy</h3>
-      <p id="aidResult"></p>
-    </div>
+Funding Summary
 
-    <div class="result-card">
-      <h3>Next Steps</h3>
-      <p id="nextResult"></p>
-    </div>
+</h3>
 
-  </div>
+<p id="summaryResult"></p>
+
+</div>
+
+<div class="result-card">
+
+<h3
+data-en="Scholarship Strategy"
+data-zh="奖学金策略">
+
+Scholarship Strategy
+
+</h3>
+
+<p id="scholarshipResult"></p>
+
+</div>
+
+<div class="result-card">
+
+<h3
+data-en="Financial Aid Strategy"
+data-zh="助学金策略">
+
+Financial Aid Strategy
+
+</h3>
+
+<p id="aidResult"></p>
+
+</div>
+
+<div class="result-card">
+
+<h3
+data-en="Recommended Next Steps"
+data-zh="建议下一步">
+
+Recommended Next Steps
+
+</h3>
+
+<p id="nextResult"></p>
+
+</div>
+
+<!-- Lead Capture -->
+
+<div class="result-card">
+
+<h3
+data-en="Unlock Detailed Funding Report"
+data-zh="获取详细 Funding Report">
+
+Unlock Detailed Funding Report
+
+</h3>
+
+<input
+id="firstName"
+type="text"
+placeholder="First Name">
+
+<input
+id="emailInput"
+type="email"
+placeholder="Email Address">
+
+<button
+onclick="requestDetailedReport()">
+
+Send My Detailed Report
+
+</button>
+
+</div>
+
+</div>
 
 </section>
 
@@ -1252,17 +1618,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <script>
 
+/* =====================================================
+   AI FUNDING PLANNER V2
+===================================================== */
+
 let currentStep = 1;
 
+/* =====================================================
+   DATA MODEL
+===================================================== */
+
 const plannerData = {
+
   grade: "",
+
   state: "",
-  gpa: "",
-  major: "",
+
+  gpaRange: "",
+
+  majorField: "",
+
   householdSize: "",
-  income: "",
+
+  magiIncome: "",
+
+  householdAssets: "",
+
+  specialStatus: [],
+
+  firstName: "",
+
   email: ""
+
 };
+
+/* =====================================================
+   STEP CONTROL
+===================================================== */
 
 function showStep(step) {
 
@@ -1270,57 +1662,202 @@ function showStep(step) {
     .querySelectorAll(".step")
     .forEach(el => el.classList.remove("active"));
 
-  document
-    .querySelector(`[data-step="${step}"]`)
-    .classList.add("active");
+  const target =
+    document.querySelector(`[data-step="${step}"]`);
+
+  if (target) {
+    target.classList.add("active");
+  }
 
   currentStep = step;
 
   document.getElementById("progressText").innerHTML =
-    `Step ${step} of 7`;
+    `Step ${step} of 10`;
 
   document.getElementById("progressFill").style.width =
-    `${(step / 7) * 100}%`;
+    `${(step / 10) * 100}%`;
+
+  if (step === 9) {
+    buildReview();
+  }
+
+  window.scrollTo({
+    top: document.getElementById("planner-start").offsetTop - 100,
+    behavior: "smooth"
+  });
+
 }
+
+/* =====================================================
+   STEP 1
+===================================================== */
 
 function selectGrade(value) {
+
   plannerData.grade = value;
+
   showStep(2);
+
 }
+
+/* =====================================================
+   STEP 2
+===================================================== */
 
 function saveState() {
-  plannerData.state =
+
+  const value =
     document.getElementById("stateInput").value;
+
+  if (!value) {
+
+    alert("Please select a state.");
+
+    return;
+
+  }
+
+  plannerData.state = value;
+
   showStep(3);
+
 }
 
-function saveGpa() {
-  plannerData.gpa =
-    document.getElementById("gpaSlider").value;
+/* =====================================================
+   STEP 3
+===================================================== */
+
+function saveGpa(value) {
+
+  plannerData.gpaRange = value;
+
   showStep(4);
+
 }
+
+/* =====================================================
+   STEP 4
+===================================================== */
 
 function saveMajor() {
-  plannerData.major =
+
+  plannerData.majorField =
     document.getElementById("majorInput").value;
+
   showStep(5);
+
 }
+
+/* =====================================================
+   STEP 5
+===================================================== */
 
 function saveHousehold() {
+
   plannerData.householdSize =
-    document.getElementById("householdSlider").value;
+    document.getElementById("householdInput").value;
+
   showStep(6);
+
 }
+
+/* =====================================================
+   STEP 6
+===================================================== */
 
 function saveIncome(value) {
-  plannerData.income = value;
+
+  plannerData.magiIncome = value;
+
   showStep(7);
+
 }
 
-function generatePlan() {
+/* =====================================================
+   STEP 7
+===================================================== */
 
-  plannerData.email =
-    document.getElementById("emailInput").value;
+function saveAssets(value) {
+
+  plannerData.householdAssets = value;
+
+  showStep(8);
+
+}
+
+/* =====================================================
+   STEP 8
+===================================================== */
+
+function saveSpecialStatus() {
+
+  plannerData.specialStatus = [];
+
+  document
+    .querySelectorAll(
+      '.checkbox-group input[type="checkbox"]:checked'
+    )
+    .forEach(box => {
+
+      plannerData.specialStatus.push(
+        box.value
+      );
+
+    });
+
+  showStep(9);
+
+}
+
+/* =====================================================
+   REVIEW PAGE
+===================================================== */
+
+function buildReview() {
+
+  const review =
+    document.getElementById("reviewContent");
+
+  review.innerHTML = `
+
+  <div class="review-grid">
+
+    <p><strong>Grade:</strong>
+    ${plannerData.grade}</p>
+
+    <p><strong>State:</strong>
+    ${plannerData.state}</p>
+
+    <p><strong>GPA:</strong>
+    ${plannerData.gpaRange}</p>
+
+    <p><strong>Major:</strong>
+    ${plannerData.majorField}</p>
+
+    <p><strong>Household Size:</strong>
+    ${plannerData.householdSize}</p>
+
+    <p><strong>MAGI:</strong>
+    ${plannerData.magiIncome}</p>
+
+    <p><strong>Assets:</strong>
+    ${plannerData.householdAssets}</p>
+
+    <p><strong>Special:</strong>
+    ${plannerData.specialStatus.join(", ") || "None"}
+    </p>
+
+  </div>
+
+  `;
+
+}
+
+/* =====================================================
+   GENERATE PLAN
+===================================================== */
+
+function generatePlan() {
 
   document
     .querySelector(".planner-section")
@@ -1330,7 +1867,51 @@ function generatePlan() {
     .getElementById("loadingScreen")
     .classList.remove("hidden");
 
+  simulateLoading();
+
+}
+
+/* =====================================================
+   LOADING MESSAGES
+===================================================== */
+
+function simulateLoading() {
+
+  const messages = [
+
+    "Analyzing Academic Profile...",
+
+    "Searching Scholarship Opportunities...",
+
+    "Reviewing Financial Aid Factors...",
+
+    "Calculating Funding Potential...",
+
+    "Preparing Recommendations..."
+
+  ];
+
+  let index = 0;
+
+  const messageBox =
+    document.getElementById("loadingMessage");
+
+  const interval = setInterval(() => {
+
+    if (index < messages.length) {
+
+      messageBox.innerHTML =
+        messages[index];
+
+      index++;
+
+    }
+
+  }, 800);
+
   setTimeout(() => {
+
+    clearInterval(interval);
 
     document
       .getElementById("loadingScreen")
@@ -1340,49 +1921,218 @@ function generatePlan() {
       .getElementById("resultsScreen")
       .classList.remove("hidden");
 
-    buildMockPlan();
+    buildFundingPlan();
 
-  }, 4000);
+  }, 4500);
+
 }
 
-function buildMockPlan() {
+/* =====================================================
+   MOCK AI ENGINE
+===================================================== */
 
-  document.getElementById("summaryResult").innerHTML =
-    "Strong academic profile with potential funding opportunities.";
+function buildFundingPlan() {
 
-  document.getElementById("scholarshipResult").innerHTML =
-    "Focus on merit-based scholarships and STEM-related awards.";
+  let scholarshipLevel = "Moderate";
 
-  document.getElementById("aidResult").innerHTML =
-    "Complete FAFSA early and review state grant programs.";
+  let aidLevel = "Moderate";
 
-  document.getElementById("nextResult").innerHTML =
-    "Research scholarship deadlines and prepare application materials.";
+  let fundingRange = "$5,000 - $15,000";
+
+  if (
+    plannerData.gpaRange === "3.8+"
+  ) {
+
+    scholarshipLevel = "High";
+
+    fundingRange = "$15,000 - $50,000";
+
+  }
+
+  if (
+    plannerData.magiIncome === "Under 30K"
+  ) {
+
+    aidLevel = "Very High";
+
+    fundingRange = "$20,000 - $70,000";
+
+  }
+
+  if (
+    plannerData.specialStatus.includes(
+      "First Generation"
+    )
+  ) {
+
+    scholarshipLevel = "High";
+
+  }
+
+  document.getElementById(
+    "summaryResult"
+  ).innerHTML =
+
+  `
+  Estimated Funding Potential:
+
+  <br><br>
+
+  ${fundingRange}
+
+  <br><br>
+
+  Scholarship Match:
+
+  ${scholarshipLevel}
+
+  <br><br>
+
+  Financial Aid Potential:
+
+  ${aidLevel}
+  `;
+
+  document.getElementById(
+    "scholarshipResult"
+  ).innerHTML =
+
+  `
+  Based on your profile, focus on:
+
+  <br><br>
+
+  • Merit Scholarships
+
+  <br>
+
+  • Institutional Scholarships
+
+  <br>
+
+  • Major-Specific Awards
+
+  <br>
+
+  • Community Foundation Programs
+
+  `;
+
+  document.getElementById(
+    "aidResult"
+  ).innerHTML =
+
+  `
+  Recommended Actions:
+
+  <br><br>
+
+  • Complete FAFSA Early
+
+  <br>
+
+  • Review State Grants
+
+  <br>
+
+  • Compare Net Price Calculators
+
+  <br>
+
+  • Monitor Priority Deadlines
+
+  `;
+
+  document.getElementById(
+    "nextResult"
+  ).innerHTML =
+
+  `
+  Next Steps:
+
+  <br><br>
+
+  1. Create Scholarship List
+
+  <br>
+
+  2. Prepare Essays
+
+  <br>
+
+  3. Gather Financial Documents
+
+  <br>
+
+  4. Track Deadlines
+
+  `;
+
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/* =====================================================
+   LEAD CAPTURE
+===================================================== */
 
-  document
-    .getElementById("gpaSlider")
-    .addEventListener("input", e => {
+function requestDetailedReport() {
 
-      document.getElementById("gpaValue").innerHTML =
-        e.target.value;
+  const firstName =
+    document.getElementById("firstName").value;
 
-    });
+  const email =
+    document.getElementById("emailInput").value;
 
-  document
-    .getElementById("householdSlider")
-    .addEventListener("input", e => {
+  if (!firstName || !email) {
 
-      document.getElementById("householdValue").innerHTML =
-        e.target.value;
+    alert(
+      "Please enter your name and email."
+    );
 
-    });
+    return;
 
-  showStep(1);
+  }
 
-});
+  plannerData.firstName = firstName;
+
+  plannerData.email = email;
+
+  alert(
+    "Thank you! Your detailed report request has been recorded."
+  );
+
+  /*
+  Future Mailgun Integration
+
+  sendDetailedReport(plannerData);
+
+  */
+}
+
+/* =====================================================
+   OPTIONAL API PLACEHOLDER
+===================================================== */
+
+async function sendDetailedReport(data) {
+
+  console.log(
+    "Future Mailgun API Call",
+    data
+  );
+
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    showStep(1);
+
+  }
+);
 
 </script>
 
