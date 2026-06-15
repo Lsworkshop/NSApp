@@ -491,8 +491,8 @@ input[type=range]{
 ========================= */
 
 /* 让 hero 成为“真正居中容器”，不吃任何祖先布局影响 */
-.page-scholarship header.hero,
-.page-scholarship .hero{
+.page-education header.hero,
+.page-education .hero{
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
@@ -505,7 +505,7 @@ input[type=range]{
 }
 
 /* hero-split 不再靠 margin auto，而是交给父级 flex 居中 */
-.page-scholarship .hero-split{
+.page-education .hero-split{
   width: min(1100px, calc(100vw - 40px)) !important;
   max-width: 1100px !important;
 
@@ -516,7 +516,7 @@ input[type=range]{
 }
 
 /* 防止某些全局规则把它推走 */
-.page-scholarship .hero-split{
+.page-education .hero-split{
   left: auto !important;
   right: auto !important;
   transform: none !important;
@@ -524,7 +524,7 @@ input[type=range]{
 }
 
 /* 按钮间距 */
-.page-scholarship .hero-actions{
+.page-education .hero-actions{
   display:flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -533,14 +533,14 @@ input[type=range]{
 
 /* Mobile 保持正常 */
 @media (max-width: 860px){
-  .page-scholarship .hero{
+  .page-education .hero{
     display:block !important;   /* 手机回到原本流式 */
   }
-  .page-scholarship .hero-split{
+  .page-education .hero-split{
     width: calc(100vw - 32px) !important;
     margin: 0 auto !important;
   }
-  .page-scholarship .hero-actions{
+  .page-education .hero-actions{
     justify-content:center;
   }
 }
