@@ -1066,6 +1066,52 @@ input[type=range]{
 
 </section>
 
+
+<section
+ id="resultsScreen"
+ class="zone-d hidden">
+
+  <div class="results-container">
+
+    <div class="result-card">
+
+      <h3>Scholarship Match Score</h3>
+
+      <div id="matchScore"
+           class="match-score">
+        0%
+      </div>
+
+    </div>
+
+    <div class="result-card">
+
+      <h3>Recommended Scholarship Categories</h3>
+
+      <p id="categoryResult"></p>
+
+    </div>
+
+    <div class="result-card">
+
+      <h3>Why You Match</h3>
+
+      <p id="reasonResult"></p>
+
+    </div>
+
+    <div class="result-card">
+
+      <h3>Suggested Next Steps</h3>
+
+      <p id="nextResult"></p>
+
+    </div>
+
+  </div>
+
+</section>
+
 <!-- TRUST BAR -->
 
 <section class="zone-b planner-trust">
@@ -1250,43 +1296,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <script>
 
-/* =====================================================
-   AI FUNDING PLANNER V2
-===================================================== */
+/* =====================================
+   AI Scholarship Matcher V0.1
+===================================== */
 
 let currentStep = 1;
 
-/* =====================================================
-   DATA MODEL
-===================================================== */
+/* Student Profile */
 
-const plannerData = {
+const studentProfile = {
 
   grade: "",
-
   state: "",
-
-  gpaRange: "",
-
-  majorField: "",
-
-  householdSize: "",
-
-  magiIncome: "",
-
-  householdAssets: "",
-
-  specialStatus: [],
-
-  firstName: "",
-
+  gpa: "",
+  major: "",
+  interests: [],
   email: ""
 
 };
 
-/* =====================================================
-   STEP CONTROL
-===================================================== */
+/* =====================================
+   Step Control
+===================================== */
 
 function showStep(step) {
 
@@ -1294,256 +1325,200 @@ function showStep(step) {
     .querySelectorAll(".step")
     .forEach(el => el.classList.remove("active"));
 
-  const target =
-    document.querySelector(`[data-step="${step}"]`);
+  const current = document.querySelector(
+    `[data-step="${step}"]`
+  );
 
-  if (target) {
-    target.classList.add("active");
+  if(current){
+    current.classList.add("active");
   }
 
   currentStep = step;
 
+  updateProgress();
+}
+
+/* =====================================
+   Progress Bar
+===================================== */
+
+function updateProgress() {
+
+  const totalSteps = 6;
+
   document.getElementById("progressText").innerHTML =
-    `Step ${step} of 10`;
+    `Step ${currentStep} of ${totalSteps}`;
 
   document.getElementById("progressFill").style.width =
-    `${(step / 10) * 100}%`;
-
-  if (step === 9) {
-    buildReview();
-  }
-
-  window.scrollTo({
-    top: document.getElementById("planner-start").offsetTop - 100,
-    behavior: "smooth"
-  });
+    `${(currentStep / totalSteps) * 100}%`;
 
 }
 
-/* =====================================================
-   STEP 1
-===================================================== */
+/* =====================================
+   Step 1
+===================================== */
 
-function selectGrade(value) {
+function saveGrade(value) {
 
-  plannerData.grade = value;
+  studentProfile.grade = value;
 
   showStep(2);
 
 }
 
-/* =====================================================
-   STEP 2
-===================================================== */
+/* =====================================
+   Step 2
+===================================== */
 
 function saveState() {
 
-  const value =
-    document.getElementById("stateInput").value;
+  const state =
+    document.getElementById("stateInput").value.trim();
 
-  if (!value) {
+  if(!state){
 
-    alert("Please select a state.");
+    alert("Please enter a state.");
 
     return;
-
   }
 
-  plannerData.state = value;
+  studentProfile.state = state;
 
   showStep(3);
 
 }
 
-/* =====================================================
-   STEP 3
-===================================================== */
+/* =====================================
+   Step 3
+===================================== */
 
-function saveGpa(value) {
+function saveGpa() {
 
-  plannerData.gpaRange = value;
+  studentProfile.gpa =
+    document.getElementById("gpaSlider").value;
 
   showStep(4);
 
 }
 
-/* =====================================================
-   STEP 4
-===================================================== */
+/* =====================================
+   Step 4
+===================================== */
 
 function saveMajor() {
 
-  plannerData.majorField =
-    document.getElementById("majorInput").value;
+  const major =
+    document.getElementById("majorInput").value.trim();
+
+  if(!major){
+
+    alert("Please enter a major.");
+
+    return;
+  }
+
+  studentProfile.major = major;
 
   showStep(5);
 
 }
 
-/* =====================================================
-   STEP 5
-===================================================== */
+/* =====================================
+   Step 5
+===================================== */
 
-function saveHousehold() {
+function toggleInterest(button, value) {
 
-  plannerData.householdSize =
-    document.getElementById("householdInput").value;
+  button.classList.toggle("selected");
+
+  if(studentProfile.interests.includes(value)){
+
+    studentProfile.interests =
+      studentProfile.interests.filter(
+        item => item !== value
+      );
+
+  } else {
+
+    studentProfile.interests.push(value);
+
+  }
+
+}
+
+function saveInterests() {
 
   showStep(6);
 
 }
 
-/* =====================================================
-   STEP 6
-===================================================== */
+/* =====================================
+   Step 6
+===================================== */
 
-function saveIncome(value) {
+function generateMatchReport() {
 
-  plannerData.magiIncome = value;
+  const email =
+    document.getElementById("emailInput").value.trim();
 
-  showStep(7);
+  if(!email){
 
-}
+    alert("Please enter your email.");
 
-/* =====================================================
-   STEP 7
-===================================================== */
+    return;
+  }
 
-function saveAssets(value) {
+  studentProfile.email = email;
 
-  plannerData.householdAssets = value;
-
-  showStep(8);
+  startLoading();
 
 }
 
-/* =====================================================
-   STEP 8
-===================================================== */
+/* =====================================
+   Loading Screen
+===================================== */
 
-function saveSpecialStatus() {
+function startLoading() {
 
-  plannerData.specialStatus = [];
+  const matcherSection =
+    document.querySelector(".matcher-section");
 
-  document
-    .querySelectorAll(
-      '.checkbox-group input[type="checkbox"]:checked'
-    )
-    .forEach(box => {
-
-      plannerData.specialStatus.push(
-        box.value
-      );
-
-    });
-
-  showStep(9);
-
-}
-
-/* =====================================================
-   REVIEW PAGE
-===================================================== */
-
-function buildReview() {
-
-  const review =
-    document.getElementById("reviewContent");
-
-  review.innerHTML = `
-
-  <div class="review-grid">
-
-    <p><strong>Grade:</strong>
-    ${plannerData.grade}</p>
-
-    <p><strong>State:</strong>
-    ${plannerData.state}</p>
-
-    <p><strong>GPA:</strong>
-    ${plannerData.gpaRange}</p>
-
-    <p><strong>Major:</strong>
-    ${plannerData.majorField}</p>
-
-    <p><strong>Household Size:</strong>
-    ${plannerData.householdSize}</p>
-
-    <p><strong>MAGI:</strong>
-    ${plannerData.magiIncome}</p>
-
-    <p><strong>Assets:</strong>
-    ${plannerData.householdAssets}</p>
-
-    <p><strong>Special:</strong>
-    ${plannerData.specialStatus.join(", ") || "None"}
-    </p>
-
-  </div>
-
-  `;
-
-}
-
-/* =====================================================
-   GENERATE PLAN
-===================================================== */
-
-function generatePlan() {
-
-  document
-    .querySelector(".planner-section")
-    .classList.add("hidden");
+  matcherSection.classList.add("hidden");
 
   document
     .getElementById("loadingScreen")
     .classList.remove("hidden");
 
-  simulateLoading();
-
-}
-
-/* =====================================================
-   LOADING MESSAGES
-===================================================== */
-
-function simulateLoading() {
-
   const messages = [
 
     "Analyzing Academic Profile...",
-
-    "Searching Scholarship Opportunities...",
-
-    "Reviewing Financial Aid Factors...",
-
-    "Calculating Funding Potential...",
-
-    "Preparing Recommendations..."
+    "Matching Scholarship Opportunities...",
+    "Evaluating Interests and Activities...",
+    "Preparing Personalized Recommendations..."
 
   ];
 
-  let index = 0;
+  let i = 0;
 
-  const messageBox =
+  const loadingMessage =
     document.getElementById("loadingMessage");
 
   const interval = setInterval(() => {
 
-    if (index < messages.length) {
+    loadingMessage.innerHTML =
+      messages[i];
 
-      messageBox.innerHTML =
-        messages[index];
+    i++;
 
-      index++;
+    if(i >= messages.length){
+
+      clearInterval(interval);
 
     }
 
-  }, 800);
+  }, 1200);
 
   setTimeout(() => {
-
-    clearInterval(interval);
 
     document
       .getElementById("loadingScreen")
@@ -1553,213 +1528,174 @@ function simulateLoading() {
       .getElementById("resultsScreen")
       .classList.remove("hidden");
 
-    buildFundingPlan();
+    buildScholarshipReport();
 
-  }, 4500);
+  }, 5000);
 
 }
 
-/* =====================================================
-   MOCK AI ENGINE
-===================================================== */
+/* =====================================
+   Build Report
+===================================== */
 
-function buildFundingPlan() {
+function buildScholarshipReport() {
 
-  let scholarshipLevel = "Moderate";
+  let score = 70;
 
-  let aidLevel = "Moderate";
+  const gpa = parseFloat(studentProfile.gpa);
 
-  let fundingRange = "$5,000 - $15,000";
+  if(gpa >= 3.8){
 
-  if (
-    plannerData.gpaRange === "3.8+"
-  ) {
+    score += 15;
 
-    scholarshipLevel = "High";
+  } else if(gpa >= 3.5){
 
-    fundingRange = "$15,000 - $50,000";
+    score += 10;
 
-  }
+  } else if(gpa >= 3.0){
 
-  if (
-    plannerData.magiIncome === "Under 30K"
-  ) {
-
-    aidLevel = "Very High";
-
-    fundingRange = "$20,000 - $70,000";
+    score += 5;
 
   }
 
-  if (
-    plannerData.specialStatus.includes(
-      "First Generation"
-    )
-  ) {
+  score += studentProfile.interests.length;
 
-    scholarshipLevel = "High";
+  if(score > 99){
+    score = 99;
+  }
+
+  /* Match Score */
+
+  document.getElementById("matchScore").innerHTML =
+    `${score}%`;
+
+  /* Recommended Categories */
+
+  let categories = [];
+
+  if(studentProfile.interests.includes("STEM")){
+
+    categories.push(
+      "STEM Scholarships"
+    );
+
+  }
+
+  if(studentProfile.interests.includes("Leadership")){
+
+    categories.push(
+      "Leadership Awards"
+    );
+
+  }
+
+  if(studentProfile.interests.includes("Community Service")){
+
+    categories.push(
+      "Community Service Scholarships"
+    );
+
+  }
+
+  if(studentProfile.interests.includes("Research")){
+
+    categories.push(
+      "Research Grants"
+    );
+
+  }
+
+  if(studentProfile.interests.includes("Arts")){
+
+    categories.push(
+      "Arts Scholarships"
+    );
+
+  }
+
+  if(studentProfile.interests.includes("Sports")){
+
+    categories.push(
+      "Athletic Scholarships"
+    );
+
+  }
+
+  if(categories.length === 0){
+
+    categories.push(
+      "Merit-Based Scholarships"
+    );
 
   }
 
   document.getElementById(
-    "summaryResult"
+    "categoryResult"
   ).innerHTML =
+    categories.join("<br>");
 
-  `
-  Estimated Funding Potential:
+  /* Why Match */
 
-  <br><br>
+  let reasons = [];
 
-  ${fundingRange}
+  reasons.push(
+    `Current GPA: ${studentProfile.gpa}`
+  );
 
-  <br><br>
+  reasons.push(
+    `State: ${studentProfile.state}`
+  );
 
-  Scholarship Match:
-
-  ${scholarshipLevel}
-
-  <br><br>
-
-  Financial Aid Potential:
-
-  ${aidLevel}
-  `;
+  reasons.push(
+    `Major Interest: ${studentProfile.major}`
+  );
 
   document.getElementById(
-    "scholarshipResult"
+    "reasonResult"
   ).innerHTML =
+    reasons.join("<br>");
 
-  `
-  Based on your profile, focus on:
-
-  <br><br>
-
-  • Merit Scholarships
-
-  <br>
-
-  • Institutional Scholarships
-
-  <br>
-
-  • Major-Specific Awards
-
-  <br>
-
-  • Community Foundation Programs
-
-  `;
-
-  document.getElementById(
-    "aidResult"
-  ).innerHTML =
-
-  `
-  Recommended Actions:
-
-  <br><br>
-
-  • Complete FAFSA Early
-
-  <br>
-
-  • Review State Grants
-
-  <br>
-
-  • Compare Net Price Calculators
-
-  <br>
-
-  • Monitor Priority Deadlines
-
-  `;
+  /* Next Steps */
 
   document.getElementById(
     "nextResult"
-  ).innerHTML =
-
-  `
-  Next Steps:
-
-  <br><br>
-
-  1. Create Scholarship List
-
-  <br>
-
-  2. Prepare Essays
-
-  <br>
-
-  3. Gather Financial Documents
-
-  <br>
-
-  4. Track Deadlines
-
+  ).innerHTML = `
+    Research local scholarship opportunities.<br>
+    Prepare a personal statement.<br>
+    Request recommendation letters.<br>
+    Track scholarship deadlines.
   `;
 
-}
-
-/* =====================================================
-   LEAD CAPTURE
-===================================================== */
-
-function requestDetailedReport() {
-
-  const firstName =
-    document.getElementById("firstName").value;
-
-  const email =
-    document.getElementById("emailInput").value;
-
-  if (!firstName || !email) {
-
-    alert(
-      "Please enter your name and email."
-    );
-
-    return;
-
-  }
-
-  plannerData.firstName = firstName;
-
-  plannerData.email = email;
-
-  alert(
-    "Thank you! Your detailed report request has been recorded."
-  );
-
-  /*
-  Future Mailgun Integration
-
-  sendDetailedReport(plannerData);
-
-  */
-}
-
-/* =====================================================
-   OPTIONAL API PLACEHOLDER
-===================================================== */
-
-async function sendDetailedReport(data) {
-
-  console.log(
-    "Future Mailgun API Call",
-    data
-  );
+  console.log(studentProfile);
 
 }
 
-/* =====================================================
-   INIT
-===================================================== */
+/* =====================================
+   GPA Slider
+===================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+
+    const slider =
+      document.getElementById("gpaSlider");
+
+    if(slider){
+
+      slider.addEventListener(
+        "input",
+        e => {
+
+          document.getElementById(
+            "gpaValue"
+          ).innerHTML =
+            e.target.value;
+
+        }
+      );
+
+    }
 
     showStep(1);
 
