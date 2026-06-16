@@ -785,177 +785,285 @@ input[type=range]{
 </div>
   </header>
 
-<!-- AI SCHOLARSHIP MATCHER V1 -->
-<section id="planner-start" class="planner-section zone-c">
+<!-- ========================================= -->
+<!-- AI SCHOLARSHIP MATCHER -->
+<!-- ========================================= -->
 
-<div class="planner-container">
+<section
+ id="matcher-start"
+ class="matcher-section zone-c">
 
-<div class="progress-wrapper">
-  <div id="progressText">Step 1 of 8</div>
-  <div class="progress-bar">
-    <div id="progressFill" class="progress-fill"></div>
+  <div class="planner-container">
+
+    <!-- Progress -->
+
+    <div class="progress-wrapper">
+
+      <div id="progressText">
+        Step 1 of 6
+      </div>
+
+      <div class="progress-bar">
+        <div
+          id="progressFill"
+          class="progress-fill"></div>
+      </div>
+
+    </div>
+
+    <!-- MATCHER CARD -->
+
+    <div
+      id="matcherCard"
+      class="planner-card">
+
+      <!-- STEP 1 -->
+
+      <div class="step active" data-step="1">
+
+        <h2
+          data-en="What grade is the student currently in?"
+          data-zh="学生目前所在年级？">
+          What grade is the student currently in?
+        </h2>
+
+        <div class="option-grid">
+
+          <button onclick="saveGrade('9th Grade')">
+            9th Grade
+          </button>
+
+          <button onclick="saveGrade('10th Grade')">
+            10th Grade
+          </button>
+
+          <button onclick="saveGrade('11th Grade')">
+            11th Grade
+          </button>
+
+          <button onclick="saveGrade('12th Grade')">
+            12th Grade
+          </button>
+
+          <button onclick="saveGrade('College Student')">
+            College Student
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- STEP 2 -->
+
+      <div class="step" data-step="2">
+
+        <h2
+          data-en="Which state do you live in?"
+          data-zh="您所在州？">
+          Which state do you live in?
+        </h2>
+
+        <input
+          id="stateInput"
+          type="text"
+          list="states"
+          placeholder="California">
+
+        <datalist id="states">
+
+          <option value="California">
+          <option value="Texas">
+          <option value="Florida">
+          <option value="New York">
+          <option value="Washington">
+          <option value="Illinois">
+          <option value="Virginia">
+          <option value="Massachusetts">
+
+        </datalist>
+
+        <button
+          class="continue-btn"
+          onclick="saveState()">
+
+          Continue
+
+        </button>
+
+      </div>
+
+      <!-- STEP 3 -->
+
+      <div class="step" data-step="3">
+
+        <h2
+          data-en="What is the student's GPA?"
+          data-zh="学生 GPA 是多少？">
+          What is the student's GPA?
+        </h2>
+
+        <div class="slider-value">
+
+          <span id="gpaValue">3.5</span>
+
+        </div>
+
+        <input
+          id="gpaSlider"
+          type="range"
+          min="2.0"
+          max="4.0"
+          step="0.1"
+          value="3.5">
+
+        <button
+          class="continue-btn"
+          onclick="saveGpa()">
+
+          Continue
+
+        </button>
+
+      </div>
+
+      <!-- STEP 4 -->
+
+      <div class="step" data-step="4">
+
+        <h2
+          data-en="What is the intended major?"
+          data-zh="计划申请什么专业？">
+          What is the intended major?
+        </h2>
+
+        <input
+          id="majorInput"
+          type="text"
+          list="majors"
+          placeholder="Computer Science">
+
+        <datalist id="majors">
+
+          <option value="Computer Science">
+          <option value="Business">
+          <option value="Engineering">
+          <option value="Nursing">
+          <option value="Biology">
+          <option value="Education">
+          <option value="Psychology">
+          <option value="Finance">
+
+        </datalist>
+
+        <button
+          class="continue-btn"
+          onclick="saveMajor()">
+
+          Continue
+
+        </button>
+
+      </div>
+
+      <!-- STEP 5 -->
+
+      <div class="step" data-step="5">
+
+        <h2
+          data-en="Select interests and activities"
+          data-zh="请选择兴趣与活动">
+          Select interests and activities
+        </h2>
+
+        <div class="interest-grid">
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'STEM')">
+            STEM
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Leadership')">
+            Leadership
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Community Service')">
+            Community Service
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Research')">
+            Research
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Arts')">
+            Arts
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Sports')">
+            Sports
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Music')">
+            Music
+          </button>
+
+          <button class="interest-btn"
+            onclick="toggleInterest(this,'Entrepreneurship')">
+            Entrepreneurship
+          </button>
+
+        </div>
+
+        <button
+          class="continue-btn"
+          onclick="saveInterests()">
+
+          Continue
+
+        </button>
+
+      </div>
+
+      <!-- STEP 6 -->
+
+      <div class="step" data-step="6">
+
+        <h2
+          data-en="Where should we send your scholarship match report?"
+          data-zh="奖学金匹配报告发送到哪里？">
+          Where should we send your scholarship match report?
+        </h2>
+
+        <input
+          id="emailInput"
+          type="email"
+          placeholder="your@email.com">
+
+        <p class="small-note"
+           data-en="We'll only use your email to deliver your scholarship match report and future educational resources."
+           data-zh="我们仅会使用您的邮箱发送奖学金匹配报告和教育资源信息。">
+           We'll only use your email to deliver your scholarship match report and future educational resources.
+        </p>
+
+        <button
+          class="continue-btn"
+          onclick="generateMatchReport()">
+
+          Find My Scholarships
+
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
-</div>
 
-<div id="plannerCard" class="planner-card">
-
-<!-- STEP 1 -->
-<div class="step active" data-step="1">
-<h2 data-en="Student Grade" data-zh="学生年级">Student Grade</h2>
-<div class="option-grid">
-<button onclick="selectGrade('9th Grade')">9th Grade</button>
-<button onclick="selectGrade('10th Grade')">10th Grade</button>
-<button onclick="selectGrade('11th Grade')">11th Grade</button>
-<button onclick="selectGrade('12th Grade')">12th Grade</button>
-<button onclick="selectGrade('College Student')">College Student</button>
-</div>
-</div>
-
-<!-- STEP 2 -->
-<div class="step" data-step="2">
-<h2 data-en="State or Country" data-zh="州或国家">State or Country</h2>
-<select id="stateInput">
-<option value="">Select</option>
-<option>California</option>
-<option>Texas</option>
-<option>Florida</option>
-<option>New York</option>
-<option>Washington</option>
-<option>Other U.S. State</option>
-<option>Outside United States</option>
-</select>
-<div class="step-nav">
-<button onclick="showStep(1)">Previous</button>
-<button onclick="saveState()">Next</button>
-</div>
-</div>
-
-<!-- STEP 3 -->
-<div class="step" data-step="3">
-<h2 data-en="Citizenship Status" data-zh="身份状态">Citizenship Status</h2>
-<div class="option-grid">
-<button onclick="saveCitizenship('US Citizen')">US Citizen</button>
-<button onclick="saveCitizenship('Permanent Resident')">Permanent Resident</button>
-<button onclick="saveCitizenship('International Student')">International Student</button>
-</div>
-<div class="step-nav">
-<button onclick="showStep(2)">Previous</button>
-</div>
-</div>
-
-<!-- STEP 4 -->
-<div class="step" data-step="4">
-<h2 data-en="Current GPA Range" data-zh="当前 GPA 区间">Current GPA Range</h2>
-<div class="option-grid">
-<button onclick="saveGpa('Below 2.5')">Below 2.5</button>
-<button onclick="saveGpa('2.5-3.0')">2.5-3.0</button>
-<button onclick="saveGpa('3.0-3.5')">3.0-3.5</button>
-<button onclick="saveGpa('3.5-3.8')">3.5-3.8</button>
-<button onclick="saveGpa('3.8+')">3.8+</button>
-</div>
-<div class="step-nav">
-<button onclick="showStep(3)">Previous</button>
-</div>
-</div>
-
-<!-- STEP 5 -->
-<div class="step" data-step="5">
-<h2 data-en="Future Major or Career Interest" data-zh="未来专业方向">Future Major or Career Interest</h2>
-<select id="majorInput">
-<option>Computer Science</option>
-<option>Engineering</option>
-<option>Healthcare</option>
-<option>Business</option>
-<option>Education</option>
-<option>Arts & Design</option>
-<option>Undecided</option>
-</select>
-<div class="step-nav">
-<button onclick="showStep(4)">Previous</button>
-<button onclick="saveMajor()">Next</button>
-</div>
-</div>
-
-<!-- STEP 6 -->
-<div class="step" data-step="6">
-<h2 data-en="First Generation Student?" data-zh="第一代大学生？">First Generation Student?</h2>
-<div class="option-grid">
-<button onclick="saveFirstGen('Yes')">Yes</button>
-<button onclick="saveFirstGen('No')">No</button>
-</div>
-<div class="step-nav">
-<button onclick="showStep(5)">Previous</button>
-</div>
-</div>
-
-<!-- STEP 7 -->
-<div class="step" data-step="7">
-<h2 data-en="Estimated Household MAGI" data-zh="家庭预估 MAGI 收入">Estimated Household MAGI</h2>
-<p data-en="MAGI is an income measure commonly used for financial aid. If unsure, choose the range closest to your family's annual income."
-data-zh="MAGI 是助学金评估常用的家庭收入指标。如果不确定，请选择最接近家庭年收入的区间。">
-MAGI is an income measure commonly used for financial aid. If unsure, choose the range closest to your family's annual income.
-</p>
-<div class="option-grid">
-<button onclick="saveIncome('Under 30K')">Under $30K</button>
-<button onclick="saveIncome('30K-60K')">$30K-$60K</button>
-<button onclick="saveIncome('60K-100K')">$60K-$100K</button>
-<button onclick="saveIncome('100K-150K')">$100K-$150K</button>
-<button onclick="saveIncome('150K+')">$150K+</button>
-</div>
-<div class="step-nav">
-<button onclick="showStep(6)">Previous</button>
-</div>
-</div>
-
-<!-- STEP 8 -->
-<div class="step" data-step="8">
-<h2 data-en="Review Profile" data-zh="检查资料">Review Profile</h2>
-<div id="reviewContent"></div>
-<div class="step-nav">
-<button onclick="showStep(7)">Previous</button>
-<button onclick="generatePlan()">Find Matching Scholarships</button>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section id="loadingScreen" class="hidden">
-<h2>Analyzing Scholarship Opportunities...</h2>
-</section>
-
-<section id="resultsScreen" class="hidden">
-<div class="results-container">
-
-<div class="result-card">
-<h3>Scholarship Match Score</h3>
-<p id="scoreResult"></p>
-</div>
-
-<div class="result-card">
-<h3>Recommended Scholarship Categories</h3>
-<p id="categoryResult"></p>
-</div>
-
-<div class="result-card">
-<h3>Why You May Qualify</h3>
-<p id="reasonResult"></p>
-</div>
-
-<div class="result-card">
-<h3>Application Strategy</h3>
-<p id="strategyResult"></p>
-</div>
-
-<div class="result-card">
-<h3>Get Personalized Scholarship Report</h3>
-<input id="firstName" type="text" placeholder="First Name">
-<input id="emailInput" type="email" placeholder="Email Address">
-<button>Send My Report</button>
-</div>
-
-</div>
 </section>
 
 <!-- TRUST BAR -->
