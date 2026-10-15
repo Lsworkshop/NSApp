@@ -6,6 +6,19 @@
   const STORAGE_KEY = "superedu-lang";
   const VALID = new Set(["en", "zh"]);
 
+    // 外部链接直达指定语言：?lang=zh 或 ?lang=en（优先于已保存的偏好）
+  try {
+    const params = new URLSearchParams(location.search);
+    const urlLang = params.get("lang");
+    if (VALID.has(urlLang)) {
+      localStorage.setItem(STORAGE_KEY, urlLang);
+      // 写入后把 ?lang= 从地址栏去掉，避免刷新时覆盖用户之后的手动切换
+      params.delete("lang");
+      const qs = params.toString();
+      history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+    }
+  } catch (e) {}
+
   function getLang() {
     const v = localStorage.getItem(STORAGE_KEY);
     return VALID.has(v) ? v : "en";
